@@ -1,0 +1,59 @@
+githubにGoogleでログイン
+2025teamproduct@gmail.com
+teamProduct2025
+
+
+
+Vercel にGitHubアカウントでログイン
+
+https://vercel.com/
+
+
+
+git init
+git add .
+git commit -m "Initial commit"
+
+git remote add origin https://github.com/ユーザー名/リポジトリ名.git
+（エラーが出るはず、でたらgit remote -v
+git remote -v
+origin https://github.com/sumida5556/product_2025 (fetch) origin https://github.com/sumida5556/product_2025 (push)
+）
+
+git push -u origin main
+
+
+git remote -v
+
+ 
+git push -u origin main
+
+
+Varcelのダッシュボードを開く
+
+Newを押してプロジェクトを選択
+
+
+Import Git RepositoryでGitHubをインストールする
+
+Import Git Repositoryにあるプロジェクトをインポートする
+
+
+3. ビルド設定（Vercel が自動検出するが確認）
+
+Import → 設定画面が開きます。以下を確認／必要なら編集してください。
+
+Framework Preset: Create React App（自動検出される）
+
+Install Command: npm install（通常そのままでOK）
+
+Build Command: npm run build（Create React App の場合）
+
+Output Directory: build
+
+Root Directory: （ルートに package.json があれば空欄）
+
+そのままなら 「Deploy」 をクリック。
+
+画面右上の Visit ボタンで公開サイトを開けます
+ 
