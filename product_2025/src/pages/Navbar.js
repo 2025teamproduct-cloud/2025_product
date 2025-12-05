@@ -8,7 +8,7 @@ const Navbar = () => {
     <header className="navbar">
       <div className="navbar-inner">
         <h1 className="navbar-title">
-          <Link to="/" className="navbar-home-link">あああああああああああああああああああああああああああああああああああああああああああああああ近場のグルメ season2</Link>
+          <Link to="/" className="navbar-home-link">近場のグルメ season2</Link>
         </h1>
         <div className="navbar-link">
           <Link to="/mypage">マイページへ</Link>
