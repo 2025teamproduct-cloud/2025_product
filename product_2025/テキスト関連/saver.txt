@@ -1,3 +1,19 @@
+gitに入れたやつを書き換えてVercelで反映させるためのコマンド
+
+git add .
+git commit -m "update"
+git push origin main
+
+
+
+
+
+
+
+
+
+
+
 githubにGoogleでログイン
 2025teamproduct@gmail.com
 teamProduct2025
