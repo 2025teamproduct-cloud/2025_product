@@ -1,0 +1,61 @@
+/* 共通カラー */
+$color-header: #ffdd7f;
+$color-border: rgba(0, 0, 0, 0.1);
+$color-text: #333;
+$color-accent: #ffb74d;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: $color-header;
+  border-bottom: 1px solid $color-border;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.navbar-inner {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 左上タイトル */
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-text;
+
+  .navbar-home-link {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #0c57f8;
+    }
+  }
+}
+
+/* 右上リンク */
+.navbar-link a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: $color-text;
+  font-weight: 600;
+  margin-left: 12px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #0c57f8;
+  }
+}

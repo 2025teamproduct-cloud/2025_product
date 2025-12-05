@@ -1,0 +1,156 @@
+// 共通カラー
+$color-header: #ffec8f;
+$color-body: #fffed7;
+$color-footer: #ffec8f;
+
+$color-border: rgba(0, 0, 0, 0.1);
+$color-text: #333;
+$color-accent: #ffd34a;
+$color-accent-register: #84caff; // 登録ボタン用カラー
+
+// ページ全体
+.register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 40px 20px;
+  background-color: $color-body;
+  color: $color-text;
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #444;
+  }
+
+  .message {
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+
+    &.success {
+      background-color: #e7ffe7;
+      border: 1px solid #b2f0b2;
+      color: #1b701b;
+    }
+
+    &.error {
+      background-color: #ffe7e7;
+      border: 1px solid #f0b2b2;
+      color: #a11b1b;
+    }
+  }
+
+  .inputArea {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: $color-accent;
+      box-shadow: 0 0 5px rgba($color-accent, 0.4);
+    }
+  }
+
+  button {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px 0;
+    margin-bottom: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #333;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: darken($color-accent, 8%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:last-of-type {
+      background-color: #fff;
+      border: 1px solid $color-border;
+      color: #555;
+
+      &:hover {
+        background-color: #f8f8f8;
+      }
+    }
+  }
+
+  hr {
+    width: 100%;
+    max-width: 320px;
+    border: none;
+    border-top: 1px solid $color-border;
+    margin: 20px 0;
+  }
+
+  .login-link {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    color: #555;
+
+    a {
+      color: #584cff;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// メッセージ表示のアニメーション
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.register-btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 0;
+  margin-bottom: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: $color-accent-register; // 任意の登録ボタンカラー
+  color: #333;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: darken(#84caff, 8%);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

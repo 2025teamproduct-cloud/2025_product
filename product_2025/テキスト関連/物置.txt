@@ -1,0 +1,389 @@
+// src/pages/AdminForm.js
+import React, { useState } from "react";
+import { db } from "../firebase";
+import { collection, addDoc, serverTimestamp, GeoPoint } from "firebase/firestore";
+import "./AdminForm";
+
+const AdminForm = () => {
+  const [form, setForm] = useState({
+    name: "",
+    genre: "",
+    openHours: "",
+    closeHours: "",
+    priceRange: "",
+    station: "",
+    imageUrl: ""
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      // 固定座標（大阪付近）を使用
+      const lat = 34.676638;
+      const lng = 135.494709;
+
+      await addDoc(collection(db, "shops"), {
+        name: form.name,
+        genre: form.genre,
+        OpenHours: parseInt(form.openHours, 10) || 0,
+        CloseHours: parseInt(form.closeHours, 10) || 0,
+        priceRange: form.priceRange,
+        station: form.station,
+        LatLng: new GeoPoint(lat, lng),
+        imageUrl: form.imageUrl,
+        createdAt: serverTimestamp()
+      });
+
+      setMessage("店舗情報を追加しました！");
+      setForm({
+        name: "",
+        genre: "",
+        openHours: "",
+        closeHours: "",
+        priceRange: "",
+        station: "",
+        imageUrl: ""
+      });
+    } catch (err) {
+      console.error(err);
+      setMessage("登録に失敗しました。");
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="admin-form">
+      <h2>店舗追加フォーム</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="name"
+          placeholder="店名"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="genre"
+          placeholder="ジャンル"
+          value={form.genre}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="openHours"
+          placeholder="開店時間(例:930)"
+          value={form.openHours}
+          onChange={handleChange}
+        />
+        <input
+          name="closeHours"
+          placeholder="閉店時間(例:2230)"
+          value={form.closeHours}
+          onChange={handleChange}
+        />
+        <input
+          name="priceRange"
+          placeholder="価格帯"
+          value={form.priceRange}
+          onChange={handleChange}
+        />
+        <input
+          name="station"
+          placeholder="最寄駅"
+          value={form.station}
+          onChange={handleChange}
+        />
+        <input
+          name="imageUrl"
+          placeholder="画像URL"
+          value={form.imageUrl}
+          onChange={handleChange}
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? "登録中..." : "送信"}
+        </button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
+};
+
+export default AdminForm;
+
+------------------------------------------
+
+import React, { useEffect, useState } from 'react';
+import { db } from '../firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useParams, useNavigate } from 'react-router-dom';
+import './GenrePage.scss';
+
+const GenrePage = () => {
+  const { genre } = useParams();
+  const [shops, setShops] = useState([]);
+  const [selectedShop, setSelectedShop] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchShops = async () => {
+      const q = query(collection(db, "shops"), where("genre", "==", genre));
+      const snapshot = await getDocs(q);
+      setShops(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    };
+    fetchShops();
+  }, [genre]);
+
+  return (
+    <div>
+      <h1>{genre}のお店</h1>
+
+      <div style={{ display: 'flex' }}>
+        {/* 地図 */}
+        <div style={{ width: '70%', height: '500px', backgroundColor: '#ddd' }}>
+          {/* 後でGoogle Maps/Leafletのピンを立てる */}
+          地図
+        </div>
+
+        {/* 店リスト */}
+        <div style={{ width: '30%', padding: '10px' }}>
+          {shops.map(shop => (
+            <div key={shop.id} style={{ cursor: 'pointer', marginBottom: '10px' }}
+              onClick={() => setSelectedShop(shop)}>
+              {shop.name}
+            </div>
+          ))}
+
+          {selectedShop && (
+            <div style={{ marginTop: '20px' }}>
+              <p>値段帯: {selectedShop.priceRange}</p>
+              <img src={selectedShop.imageUrl} alt={selectedShop.name} width={150} />
+              <p>口コミ: {selectedShop.reviews?.join(' / ')}</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 下部ジャンルボタン */}
+      <h2>他のジャンルも見る</h2>
+      <button onClick={() => navigate('/')}>戻る</button>
+    </div>
+  );
+};
+
+export default GenrePage;
+
+-------------------------------------------
+
+import React, { useEffect, useState } from 'react';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import { useNavigate, Link } from 'react-router-dom';
+import './Home.scss';
+
+const Home = () => {
+  const [genres, setGenres] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      const snapshot = await getDocs(collection(db, "shops"));
+      const uniqueGenres = [...new Set(snapshot.docs.map(doc => doc.data().genre))];
+      setGenres(uniqueGenres);
+    };
+    fetchGenres();
+  }, []);
+
+  return (
+    <div>
+      <div className='header'>
+        <h1 className='title'>近場のグルメ season2</h1>
+        <div className='toMypage'>
+          <Link to="/mypage"><h3>マイページへ</h3></Link>
+        </div>
+      </div>
+
+      <h2>ジャンルを選択</h2>
+      {genres.map((genre, idx) => (
+        <button key={idx} onClick={() => navigate(`/genre/${genre}`)}>
+          {genre}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+export default Home;
+
+----------------------------------------------
+
+import React, { useState } from 'react';
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import './Login.scss';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleEmailLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/home');
+    } catch (error) {
+      alert('ログイン失敗: ' + error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      navigate('/home');
+    } catch (error) {
+      alert('Googleログイン失敗: ' + error.message);
+    }
+  };
+
+  return (
+    <div>
+      <h2>ログイン</h2>
+      <input className="inputArea" type="email" placeholder="メールアドレス" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input className="inputArea" type="password" placeholder="パスワード" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={handleEmailLogin}>ログイン</button>
+
+      <hr />
+
+      <button onClick={handleGoogleLogin}>Googleでログイン</button>
+
+      <p>アカウントがない？ <a href="/register">登録する</a></p>
+    </div>
+  );
+};
+
+export default Login;
+
+-----------------------------------------
+
+import React from 'react';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import './MyPage.scss';
+
+const MyPage = () => {
+  const user = auth.currentUser;
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    signOut(auth);
+    navigate('/');
+  };
+
+  return (
+    <div>
+      <h2>マイページ</h2>
+      {user ? (
+        <div>
+          <p>ようこそ、{user.displayName || user.email} さん</p>
+          {user.photoURL && (
+            <img
+              src={user.photoURL}
+              alt="icon"
+              width={60}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/default-icon.png'; // fallback image
+              }}
+            />
+          )}
+          <br />
+          <button onClick={handleLogout}>ログアウト</button>
+        </div>
+      ) : (
+        <>
+        <p>ログインしていません</p>
+        <p><a href="/login">こちら</a>からログインしてください</p>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default MyPage;
+
+-----------------------------------------------
+
+// src/pages/Register.js
+import React, { useState } from 'react';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import './Register.scss';
+
+const Register = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleRegister = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert('登録成功！ログインしてください。');
+      navigate('/');
+    } catch (error) {
+      alert('登録失敗: ' + error.message);
+    }
+  };
+
+  return (
+    <div>
+      <h2>新規登録</h2>
+      <input type="email" placeholder="メールアドレス" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="パスワード" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={handleRegister}>登録する</button>
+    </div>
+  );
+};
+
+export default Register;
+
+---------------------------------------
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import MyPage from './pages/MyPage';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import GenrePage from './pages/GenrePage';
+import AdminForm from './pages/AdminForm';
+import './pages/Style.scss';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/genre/:genre" element={<GenrePage />} />
+        <Route path="/admin" element={<AdminForm />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

@@ -1,0 +1,71 @@
+軸はfigmaのやつで作る
+
+---------------------
+追加
+
+ログイン・登録画面(基本リンクはログインだけでその中に登録に飛ばすリンク)
+マイページ
+ブックマーク
+決まってない時に決めるためのやつ(質問は後で決める)
+
+スタンプラリー
+占い
+
+---------------------
+備考
+
+学校周りの店の再検索と更新
+firebaseに店の登録
+
+firebaseアカウント
+2025teamproduct@gmail.com
+teamProduct2025
+
+saisettei2025@gmail.com
+2025saisettei
+
+09/11/変更有
+09/18/変更有
+09/20/変更有
+10/03/変更有
+10/11/変更有
+
+product_2025
+├─ node_modules/
+├─ public/
+│  ├─ index.html
+│  └─ robots.txt
+├─ src/
+│  ├─ pages/
+│  │  ├─ AdminForm.js
+│  │  ├─ AdminForm.scss
+│  │  ├─ GenrePage.js
+│  │  ├─ GenrePage.scss
+│  │  ├─ Home.js
+│  │  ├─ Home.scss
+│  │  ├─ Login.js
+│  │  ├─ Login.scss
+│  │  ├─ MonthlyRanking.js
+│  │  ├─ MonthlyRanking.scss
+│  │  ├─ MyPage.js
+│  │  ├─ MyPage.scss
+│  │  ├─ Navbar.js
+│  │  ├─ Navbar.scss
+│  │  ├─ ProfileEdit.js
+│  │  ├─ ProfileEdit.scss
+│  │  ├─ Register.js
+│  │  ├─ Register.scss
+│  │  ├─ StationPage.js
+│  │  ├─ StationPage.scss
+│  │  └─ Style.scss
+│  ├─ utils/
+│  │  ├─ bookmarksUtils.js
+│  │  ├─ bookmarksUtils.scss
+│  │  └─ visitedUtils.js
+│  ├─ App.css
+│  ├─ App.js
+│  ├─ firebase.js
+│  └─ index.js
+├─ テキスト関連/
+├─ package-lock.json
+└─ package.json

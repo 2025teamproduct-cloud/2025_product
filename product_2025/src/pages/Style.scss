@@ -1,0 +1,39 @@
+/* 共通スタイル */
+
+/* カラーベース */
+$color-header-footer: #ffec8f;
+$color-body:        #fffed7;
+$color-text:        #222;
+
+/* リセット */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "メイリオ", sans-serif;
+  background: $color-body;
+  color: $color-text;
+  line-height: 1.5;
+}
+
+/* ヘッダー / フッター */
+.app-header, .app-footer {
+  background: $color-header-footer;
+  color: $color-text;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header h1, .app-footer p {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* コンテンツエリア */
+.container {
+  max-width: 980px;
+  margin: 20px auto;
+  padding: 0 16px;
+}

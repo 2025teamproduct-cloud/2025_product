@@ -1,0 +1,32 @@
+node.js react 環境再現
+
+1.public,src,package.jsonのみを入れたフォルダを作る
+
+2.cd [プロジェクト名]で移動
+
+cd product_2025
+
+3."Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass"を使用してセキュリティ解除
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+4.package.jsonに"start"スクリプトがあることを確認
+
+5.routerを使っているなら"npm install react-router-dom"を実行して依存関係を追加
+
+npm install react-router-dom
+
+6."npm start"で起動
+
+Sassを使っているなら
+"npm i sass" をターミナルに
+
+npm i sass
+
+npm i firebase
+
+地図の導入
+npm install leaflet react-leaflet
+
+日付ライブラリ
+npm install date-fns
