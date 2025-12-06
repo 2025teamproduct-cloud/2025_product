@@ -46,7 +46,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="header">
-        <h2 className="title">あああああああああああああああああああああああああジャンルを選択</h2>
+        <h2 className="title">ジャンルを選択</h2>
       </header>
 
       <div className="genre-buttons">
