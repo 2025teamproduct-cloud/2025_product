@@ -361,6 +361,7 @@
   .station-buttons,
   .genre-buttons {
     gap: 10px;
+    display: flex;
   }
 
   .station-buttons button,
