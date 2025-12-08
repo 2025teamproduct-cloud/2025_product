@@ -59,3 +59,9 @@ $color-accent: #ffb74d;
     color: #0c57f8;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .navbar-home-link {
+    color: red;
+  }
+}
