@@ -33,7 +33,8 @@ $color-accent: #ffb74d;
 .navbar-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: $color-text;
+  // color: $color-text;
+  color: red;
 
   .navbar-home-link {
     text-decoration: none;
