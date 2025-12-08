@@ -1,3 +1,5 @@
+// src/components/Login.scss
+
 // 共通カラー
 $color-header: #ffec8f;
 $color-body: #fffed7;
@@ -6,6 +8,7 @@ $color-footer: #ffec8f;
 $color-border: rgba(0, 0, 0, 0.1);
 $color-text: #333;
 $color-accent: #ffd34a;
+
 @import "./Style.scss";
 
 // ページ全体
@@ -67,7 +70,10 @@ $color-accent: #ffd34a;
     }
   }
 
-  button {
+  /* ====================================
+      ★変更点：共通ボタンスタイルを .btn に分離
+     ==================================== */
+  .btn {
     width: 100%;
     max-width: 320px;
     padding: 10px 0;
@@ -77,26 +83,37 @@ $color-accent: #ffd34a;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    color: #333;
     transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  /* ====================================
+      ★変更点：メールログインの専用クラス
+     ==================================== */
+  .email-login {
+    background-color: $color-accent;
+    color: #333;
 
     &:hover {
       background-color: darken($color-accent, 8%);
       transform: translateY(-2px);
     }
+  }
 
-    &:active {
-      transform: translateY(0);
-    }
+  /* ====================================
+      ★変更点：Googleログイン専用クラス
+     ==================================== */
+  .google-login {
+    background-color: #fff;
+    border: 1px solid $color-border;
+    color: #555;
 
-    &:last-of-type {
-      background-color: #fff;
-      border: 1px solid $color-border;
-      color: #555;
-
-      &:hover {
-        background-color: #f8f8f8;
-      }
+    &:hover {
+      background-color: #f8f8f8;
+      transform: translateY(-2px);
     }
   }
 
@@ -130,4 +147,3 @@ $color-accent: #ffd34a;
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
-

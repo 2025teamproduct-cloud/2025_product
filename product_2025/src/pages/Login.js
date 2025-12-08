@@ -102,11 +102,17 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleEmailLogin}>ログイン</button>
+      {/* ★変更点：ボタンにクラスを追加 */}
+      <button className="btn email-login" onClick={handleEmailLogin}>
+        ログイン
+      </button>
 
       <hr />
 
-      <button onClick={handleGoogleLogin}>Googleでログイン</button>
+      {/* ★変更点：Google 用の別クラスを追加 */}
+      <button className="btn google-login" onClick={handleGoogleLogin}>
+        Googleでログイン
+      </button>
 
       <p>
         アカウントがない？ <a href="/register">登録する</a>
