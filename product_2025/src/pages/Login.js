@@ -102,7 +102,7 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleEmailLogin} className='mail-login-button'>ログイン</button>
+      <button onClick={handleEmailLogin}>ログイン</button>
 
       <hr />
 
