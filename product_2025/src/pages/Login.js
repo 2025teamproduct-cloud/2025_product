@@ -103,7 +103,7 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       {/* ★変更点：ボタンにクラスを追加 */}
-      <button className="email-login" onClick={handleEmailLogin}>
+      <button className="btn email-login" onClick={handleEmailLogin}>
         ログイン
       </button>
 
