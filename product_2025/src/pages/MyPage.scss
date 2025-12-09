@@ -187,3 +187,134 @@ $color-danger: #f87171;
     }
   }
 }
+
+/* ここは元のscssの続きにそのまま追加 */
+@media (max-width: 1024px) {
+  .mypage {
+    padding: 30px 20px;
+    margin: 120px auto;
+
+    .user-info {
+      img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .username {
+        font-size: 1.1rem;
+      }
+
+      .mypage-buttons {
+        button {
+          padding: 5px 10px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .bookmarks-section {
+      .bookmark-list {
+        .bookmark-item {
+          padding: 10px 14px;
+
+          .bookmark-info {
+            .bookmark-name {
+              font-size: 1rem;
+            }
+            .bookmark-address {
+              font-size: 0.9rem;
+            }
+          }
+
+          .bookmark-actions {
+            .remove-btn {
+              padding: 4px 8px;
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .mypage {
+    padding: 20px 15px;
+    margin: 100px auto;
+
+    .user-info {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+
+      img {
+        width: 65px;
+        height: 65px;
+      }
+
+      .username {
+        font-size: 1.05rem;
+      }
+
+      .mypage-buttons {
+        margin-left: 0;
+        justify-content: center;
+        gap: 8px;
+
+        button {
+          padding: 5px 10px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+
+    .bookmarks-section {
+      h3 {
+        font-size: 1.1rem;
+        text-align: center;
+      }
+
+      .bookmark-list {
+        .bookmark-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+
+          .bookmark-info {
+            .bookmark-name {
+              font-size: 1rem;
+            }
+            .bookmark-address {
+              font-size: 0.9rem;
+            }
+          }
+
+          .bookmark-actions {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+
+            .remove-btn {
+              padding: 4px 8px;
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+
+      .show-all-btn {
+        padding: 7px 15px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .not-logged-in {
+      padding: 30px 15px;
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}
