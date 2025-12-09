@@ -242,6 +242,7 @@ $color-danger: #f87171;
   .mypage {
     padding: 20px 15px;
     margin: 100px auto;
+    max-width: 300px;
 
     .user-info {
       flex-direction: column;
