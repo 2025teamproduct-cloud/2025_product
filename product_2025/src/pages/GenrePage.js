@@ -62,19 +62,18 @@ const formatTime = (num) => {
 // 選択した店を中央に移動
 const FlyToShop = ({ shop, markerRef }) => {
   const map = useMap();
+
   useEffect(() => {
     if (shop?.lat && shop?.lng && markerRef) {
-      const offsetX = 150;
-      const point = map.latLngToContainerPoint([shop.lat, shop.lng]);
-      const targetPoint = L.point(point.x - offsetX, point.y);
-      const targetLatLng = map.containerPointToLatLng(targetPoint);
+      map.setView([shop.lat, shop.lng], 18, { animate: true });
 
-      map.setView(targetLatLng, 18, { animate: true });
       markerRef.openPopup();
     }
   }, [shop, map, markerRef]);
+
   return null;
 };
+
 
 const GenrePage = () => {
   const { genre } = useParams();
