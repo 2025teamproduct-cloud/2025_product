@@ -50,12 +50,21 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
+// HHmm -> HH:mm へ変換
+const formatTime = (num) => {
+  if (!num) return "";
+  const str = num.toString().padStart(4, "0");
+  const h = str.slice(0, 2);
+  const m = str.slice(2);
+  return `${h}:${m}`;
+};
+
 // 選択した店を中央に移動
 const FlyToShop = ({ shop, markerRef }) => {
   const map = useMap();
   useEffect(() => {
     if (shop?.lat && shop?.lng && markerRef) {
-      const offsetX = 150; // px単位、右のリスト幅ぶん余白を作る
+      const offsetX = 150;
       const point = map.latLngToContainerPoint([shop.lat, shop.lng]);
       const targetPoint = L.point(point.x - offsetX, point.y);
       const targetLatLng = map.containerPointToLatLng(targetPoint);
@@ -78,7 +87,6 @@ const GenrePage = () => {
   const navigate = useNavigate();
   const markerRefs = useRef({});
 
-  // 認証状態の監視
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -104,7 +112,6 @@ const GenrePage = () => {
       );
     };
 
-    // OCA を常に取得
     const fetchOca = async () => {
       const docRef = doc(db, "default", "default");
       const snap = await getDoc(docRef);
@@ -158,9 +165,7 @@ const GenrePage = () => {
 
     const newState = await toggleBookmark(user.uid, shop);
     setBookmarkedIds((prev) =>
-      newState
-        ? [...prev, shop.id] // 追加
-        : prev.filter((id) => id !== shop.id) // 削除
+      newState ? [...prev, shop.id] : prev.filter((id) => id !== shop.id)
     );
   };
 
@@ -176,7 +181,6 @@ const GenrePage = () => {
     );
   };
 
-
   return (
     <div className="genre-page">
 
@@ -185,8 +189,8 @@ const GenrePage = () => {
         <div className="genre-map">
           <MapContainer
             center={[34.672935, 135.492627]}
-            zoom={18}          // 初期ズーム
-            minZoom={15}       // ズームの下限
+            zoom={18}
+            minZoom={15}
             style={{ width: "100%", height: "100%" }}
           >
 
@@ -211,6 +215,21 @@ const GenrePage = () => {
                   <br />
                   {shop.address}
                   <br />
+
+                  {/* 営業時間表示 */}
+                  {shop.businessHours && shop.businessHours.length > 0 && (
+                    <div className="business-hours">
+                      <h4>営業時間</h4>
+                      {shop.businessHours.map((time, idx) => (
+                        <div key={idx}>
+                          {time.label ? `${time.label}: ` : ""}
+                          {formatTime(time.open)} - {formatTime(time.close)}
+                        </div>
+                      ))}
+                      <br />
+                    </div>
+                  )}
+
                   <button
                     className="popup-bookmark-btn"
                     onClick={() => handleBookmarkClick(shop)}
@@ -233,7 +252,7 @@ const GenrePage = () => {
               </Marker>
             ))}
 
-            {/* OCA（赤ピン・常時表示） */}
+            {/* OCA（赤ピン） */}
             {oca && (
               <Marker
                 key={oca.id}
@@ -275,8 +294,19 @@ const GenrePage = () => {
                 <span className="station"> / {shop.station}</span>
               </div>
 
+              {/* 営業時間（リスト側） */}
+              {shop.businessHours && shop.businessHours.length > 0 && (
+                <div className="shop-hours">
+                  {shop.businessHours.map((time, i) => (
+                    <div key={i}>
+                      {time.label ? `${time.label}: ` : ""}
+                      {formatTime(time.open)} - {formatTime(time.close)}
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div className="shop-actions">
-                {/* ブックマークボタン */}
                 <button
                   className={`bookmark-btn ${bookmarkedIds.includes(shop.id) ? "active" : ""}`}
                   onClick={(e) => {
@@ -284,7 +314,6 @@ const GenrePage = () => {
                     const btn = e.currentTarget;
                     handleBookmarkClick(shop);
 
-                    // スパークアニメーション（視覚効果）
                     setTimeout(() => {
                       if (btn && btn.classList) {
                         btn.classList.add("spark");
@@ -293,11 +322,12 @@ const GenrePage = () => {
                     }, 50);
                   }}
                 >
-                  <span className="star-icon">{bookmarkedIds.includes(shop.id) ? "❤️" : "🤍"}</span>
+                  <span className="star-icon">
+                    {bookmarkedIds.includes(shop.id) ? "❤️" : "🤍"}
+                  </span>
                   <span className="sparkles"></span>
                 </button>
 
-                {/* 訪問ボタン */}
                 <button
                   className={`visited-btn ${visitedIds.includes(shop.id) ? "active" : ""}`}
                   onClick={(e) => {
