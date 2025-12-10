@@ -36,9 +36,9 @@ product_2025
 │  ├─ index.html
 │  └─ robots.txt
 ├─ src/
-│  ├─ img/
-│  │  └─ Image.jpg
 │  ├─ pages/
+│  │  └─ img/
+│  │      └─ Image.jpg
 │  │  ├─ AdminForm.js
 │  │  ├─ AdminForm.scss
 │  │  ├─ GenrePage.js
