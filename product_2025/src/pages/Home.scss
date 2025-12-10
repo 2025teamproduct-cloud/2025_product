@@ -166,40 +166,43 @@
 
 /* ▼ スマホ (600px 以下) */
 @media (max-width: 600px) {
-  .home-container .title,
-  .home-container .station-title {
-    font-size: 1.4rem; /* スマホ用に少し小さく */
-  }
+  .home-container {
 
-  .station-buttons,
-  .genre-buttons {
-    grid-template-columns: repeat(1, 1fr); /* ★ スマホは1列 */
-    gap: 12px;
-    max-width: 350px; /* 横に広がりすぎないように中央寄せ */
-    margin: 0 auto 30px;
-    padding: 0 12px;
-  }
+    .title,
+    .station-title {
+      font-size: 1.4rem;
+    }
 
-  .station-buttons button,
-  .genre-buttons button {
-    padding: 12px 0;
-    font-size: 1rem;
-    border-radius: 10px;
-  }
+    .station-buttons,
+    .genre-buttons {
+      grid-template-columns: repeat(1, 1fr); /* ★ スマホは1列 */
+      gap: 12px;
+      max-width: 350px;
+      margin: 0 auto 30px;
+      padding: 0 12px;
+    }
 
-  .ranking-link-btn {
-    font-size: 1rem;
-    padding: 10px 24px;
-    border-radius: 8px;
-  }
+    .station-buttons button,
+    .genre-buttons button {
+      padding: 12px 0;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
 
-  .admin-link-btn {
-    font-size: 0.95rem;
-    padding: 10px 20px;
-    border-radius: 8px;
-  }
+    .ranking-link-btn {
+      font-size: 1rem;
+      padding: 10px 24px;
+      border-radius: 8px;
+    }
 
-  .login-message {
-    font-size: 0.9rem;
+    .admin-link-btn {
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    .login-message {
+      font-size: 0.9rem;
+    }
   }
 }
