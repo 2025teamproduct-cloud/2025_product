@@ -94,7 +94,7 @@ const Home = () => {
         </p>
       )}
 
-      <img src={imageFile} alt="" />
+      <img src={imageFile} alt="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
     </div>
   );
 };
