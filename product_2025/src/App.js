@@ -11,6 +11,9 @@ import Navbar from './pages/Navbar.js';
 import MonthlyRanking from './pages/MonthlyRanking.js';
 import StationPage from './pages/StationPage.js';
 
+// ← Footer を追加
+import Footer from './pages/Footer.js';
+
 function App() {
   return (
     <Router>
@@ -28,6 +31,8 @@ function App() {
         <Route path="/ranking" element={<MonthlyRanking />} />
         <Route path="/station/:station" element={<StationPage />} />
       </Routes>
+
+      <Footer />
     </Router>
   );
 }
