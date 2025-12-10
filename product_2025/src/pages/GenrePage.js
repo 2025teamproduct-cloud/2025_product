@@ -346,7 +346,7 @@ const GenrePage = () => {
       <div className="genre-bottom">
         <h2>他のジャンルも見る</h2>
         <button className="genre-back-btn" onClick={() => navigate("/")}>
-          戻る
+          戻  る
         </button>
       </div>
     </div>
