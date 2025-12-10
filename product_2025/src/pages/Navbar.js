@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import Logo from "./img/Image.jpg";
+import SimpleLogo from "./img/Simple.jpg";
 
 const Navbar = () => {
   return (
@@ -10,7 +10,7 @@ const Navbar = () => {
 
         <h1 className="navbar-title">
           <Link to="/" className="navbar-home-link">
-            <img src={Logo} alt="logo" className="navbar-logo" />
+            <img src={SimpleLogo} alt="logo" className="navbar-logo" />
           </Link>
         </h1>
 
