@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import imageFile from '../img/Image.jpg';
 
 const Navbar = () => {
   return (
@@ -10,11 +9,7 @@ const Navbar = () => {
 
         <h1 className="navbar-title">
           <Link to="/" className="navbar-home-link">
-            <img 
-              src={imageFile} 
-              alt="近場のグルメ season2 ロゴ"
-              className="navbar-logo"
-            />
+            <img src="/img/Image.jpg" alt="logo" className="navbar-logo" />
           </Link>
         </h1>
 

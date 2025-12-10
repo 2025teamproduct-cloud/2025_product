@@ -1,6 +1,6 @@
 // ...existing code...
 import React, { useEffect, useState } from 'react';
-import { db, auth } from '../firebase';
+import { db, auth } from '../../src/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
