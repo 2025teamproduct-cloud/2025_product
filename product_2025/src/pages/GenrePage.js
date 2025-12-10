@@ -190,7 +190,7 @@ const GenrePage = () => {
             center={[34.672935, 135.492627]}
             zoom={18}
             minZoom={15}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "400px" }}
           >
 
             <TileLayer
