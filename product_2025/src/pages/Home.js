@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import './Home.scss';
+import imageFile from '../img/Image.jpg';
 
 const Home = () => {
   const [genres, setGenres] = useState([]);
@@ -93,7 +94,7 @@ const Home = () => {
         </p>
       )}
 
-      <img src="../img/Image.jpg" alt=""></img>
+      <img src={imageFile} alt="" />
     </div>
   );
 };
