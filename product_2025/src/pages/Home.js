@@ -92,6 +92,8 @@ const Home = () => {
           店舗を登録するには <Link to="/login">ログイン</Link> してください。
         </p>
       )}
+
+      <img src="Image.jpg" alt=""></img>
     </div>
   );
 };

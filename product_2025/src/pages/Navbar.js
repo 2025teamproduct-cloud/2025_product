@@ -12,7 +12,6 @@ const Navbar = () => {
         </h1>
         <div className="navbar-link">
           <Link to="/mypage">マイページへ</Link>
-          <img src="Image.jpg" alt=""></img>
         </div>
       </div>
     </header>
