@@ -45,6 +45,7 @@ $color-accent: #ffb74d;
     text-decoration: none;
     color: inherit;
     transition: all 0.2s ease;
+    display: flex;
 
     &:hover {
       color: #0c57f8;
