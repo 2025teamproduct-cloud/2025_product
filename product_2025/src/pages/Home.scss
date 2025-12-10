@@ -164,25 +164,25 @@
   }
 }
 
-/* ▼ ジャンルボタン＋駅ボタンを 5列に強制配置 */
-.home-container .genre-buttons,
-.home-container .station-buttons {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 12px !important;
-  width: 100%;
-  max-width: 900px;
-  margin: 20px auto !important;
-  padding: 0 10px;
-}
+// /* ▼ ジャンルボタン＋駅ボタンを 5列に強制配置 */
+// .home-container .genre-buttons,
+// .home-container .station-buttons {
+//   display: grid !important;
+//   grid-template-columns: repeat(5, 1fr) !important;
+//   gap: 12px !important;
+//   width: 100%;
+//   max-width: 900px;
+//   margin: 20px auto !important;
+//   padding: 0 10px;
+// }
 
-/* ▼ ボタン幅も強制的に揃える */
-.home-container .genre-buttons button,
-.home-container .station-buttons button {
-  width: 100% !important;
-  padding: 12px 0 !important;
-  border-radius: 8px;
-  font-size: 16px;
-  border: 1px solid #d1b68a;
-  background: #ffe8b5;
-}
+// /* ▼ ボタン幅も強制的に揃える */
+// .home-container .genre-buttons button,
+// .home-container .station-buttons button {
+//   width: 100% !important;
+//   padding: 12px 0 !important;
+//   border-radius: 8px;
+//   font-size: 16px;
+//   border: 1px solid #d1b68a;
+//   background: #ffe8b5;
+// }
