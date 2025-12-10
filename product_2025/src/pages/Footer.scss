@@ -4,7 +4,11 @@
   background-color: #ffdd7f;
   text-align: center;
   border-top: 1px solid rgba(0,0,0,0.1);
-  margin-top: 40px;
+
+  position: fixed;   /* 固定 */
+  bottom: 0;         /* 画面下 */
+  left: 0;
+  z-index: 1000;
 
   .footer-text {
     font-size: 14px;
