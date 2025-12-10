@@ -242,11 +242,11 @@ $color-accent: #ffd34a;
   }
 
   .genre-map {
-    height: 300px;
+    height: 300px !important;
   }
 
   .genre-list {
-    max-height: 300px;
+    height: 300px !important;
     padding: 8px;
   }
 
