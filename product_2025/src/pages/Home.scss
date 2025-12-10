@@ -186,3 +186,41 @@
 //   border: 1px solid #d1b68a;
 //   background: #ffe8b5;
 // }
+
+/* ▼ スマホ (600px 以下) */
+@media (max-width: 600px) {
+
+  .home-container {
+    padding-top: 60px;
+  }
+
+  .home-container .title,
+  .home-container .station-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .station-buttons,
+  .genre-buttons {
+    gap: 10px;
+  }
+
+  .station-buttons button,
+  .genre-buttons button {
+    width: 85%;
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .admin-link-btn {
+    width: 80%;
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .ranking-link-btn {
+    width: 80%;
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
