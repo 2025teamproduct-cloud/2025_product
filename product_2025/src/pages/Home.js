@@ -5,11 +5,11 @@ import { collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import './Home.scss';
-import Image3 from "./img/Image3.png";
-import Image4 from "./img/Image4.png";
-import Image5 from "./img/Image5.png";
-import Image6 from "./img/Image6.png";
-import Image7 from "./img/Image7.png";
+import Image3 from "./img/Image3.jpg";
+import Image4 from "./img/Image4.jpg";
+import Image5 from "./img/Image5.jpg";
+import Image6 from "./img/Image6.jpg";
+import Image7 from "./img/Image7.jpg";
 
 /* ▼▼ 追加：Swiper の import ▼▼ */
 import { Swiper, SwiperSlide } from 'swiper/react';
