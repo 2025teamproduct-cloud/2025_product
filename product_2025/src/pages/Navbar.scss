@@ -20,6 +20,12 @@ $color-accent: #ffb74d;
   box-sizing: border-box;
 }
 
+.navbar-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
 .navbar-inner {
   width: 100%;
   max-width: 980px;
