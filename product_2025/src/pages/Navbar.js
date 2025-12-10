@@ -10,8 +10,8 @@ const Navbar = () => {
 
         <h1 className="navbar-title">
           <Link to="/" className="navbar-home-link">
-            近場のグルメ2
             <img src={SimpleLogo} alt="logo" className="navbar-logo" />
+            近場のグルメ2
           </Link>
         </h1>
 
