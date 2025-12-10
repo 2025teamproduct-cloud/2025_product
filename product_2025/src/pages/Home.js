@@ -5,6 +5,18 @@ import { collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import './Home.scss';
+import Image3 from "./img/Image3.png";
+import Image4 from "./img/Image4.png";
+import Image5 from "./img/Image5.png";
+import Image6 from "./img/Image6.png";
+import Image7 from "./img/Image7.png";
+
+/* ▼▼ 追加：Swiper の import ▼▼ */
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+/* ▲▲ 追加：Swiper の import ▲▲ */
 
 const Home = () => {
   const [genres, setGenres] = useState([]);
@@ -45,6 +57,36 @@ const Home = () => {
 
   return (
     <div className="home-container">
+
+      {/* ▼▼ 追加：画像カルーセル ▼▼ */}
+      <div className="home-carousel">
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000 }}
+          loop={true}
+          spaceBetween={10}
+          slidesPerView={1}
+        >
+          <SwiperSlide>
+            <img src={Image3} alt="3" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={Image4} alt="4" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={Image5} alt="5" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={Image6} alt="6" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={Image7} alt="7" />
+          </SwiperSlide>
+        </Swiper>
+      </div>
+      {/* ▲▲ 追加：画像カルーセル ▲▲ */}
+
       <header className="header">
         <h2 className="title">ジャンルを選択</h2>
       </header>
