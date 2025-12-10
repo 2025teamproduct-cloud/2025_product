@@ -1,26 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import MyPage from './pages/MyPage';
-import ProfileEdit from './pages/ProfileEdit'; // 追加
-import Login from './pages/Login';
-import Register from './pages/Register';
-import GenrePage from './pages/GenrePage';
-import AdminForm from './pages/AdminForm';
+import Home from './pages/Home.js';
+import MyPage from './pages/MyPage.js';
+import ProfileEdit from './pages/ProfileEdit.js';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
+import GenrePage from './pages/GenrePage.js';
+import AdminForm from './pages/AdminForm.js';
 import './pages/Style.scss';
-import Navbar from './pages/Navbar';
-import MonthlyRanking from './pages/MonthlyRanking';
-import StationPage from './pages/StationPage';
+import Navbar from './pages/Navbar.js';
+import MonthlyRanking from './pages/MonthlyRanking.js';
+import StationPage from './pages/StationPage.js';
 
 function App() {
   return (
     <Router>
-      <Navbar /> {/* 全ページ共通で表示 */}
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/profile-edit" element={<ProfileEdit />} /> {/* 新規追加 */}
+        <Route path="/profile-edit" element={<ProfileEdit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/genre/:genre" element={<GenrePage />} />
