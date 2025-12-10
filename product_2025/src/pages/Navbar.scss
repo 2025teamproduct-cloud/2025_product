@@ -109,6 +109,8 @@ $color-accent: #ffb74d;
 
   .navbar-title {
     font-size: 1.15rem;
+    display: flex;
+    align-items: center;
 
     .navbar-home-link {
       padding: 5px 2px;
