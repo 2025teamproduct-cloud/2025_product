@@ -20,10 +20,14 @@ $color-accent: #ffb74d;
   box-sizing: border-box;
 }
 
+/* ロゴ画像を画面幅に応じて縮小可能に */
 .navbar-logo {
-  height: 50px;
+  height: auto;
+  max-height: 50px;
+  max-width: 18%;  /* ロゴの横幅を可変にして縮むスペースを作る */
   width: auto;
-  display: block;
+  flex-shrink: 1;  /* 縮小許可 */
+  margin-right: 6px;
 }
 
 .navbar-inner {
@@ -37,7 +41,9 @@ $color-accent: #ffb74d;
 
 /* 左上タイトル */
 .navbar-title {
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: clamp(1rem, 4vw, 1.5rem); /* 文字を可変にして狭い画面で縮小 */
   font-weight: 700;
   color: $color-text;
 
@@ -48,6 +54,8 @@ $color-accent: #ffb74d;
     display: flex;
     align-items: center;
 
+    flex-shrink: 1; /* 画面幅が狭くなったときに縮むことを許可 */
+
     &:hover {
       color: #0c57f8;
     }
@@ -57,7 +65,7 @@ $color-accent: #ffb74d;
 /* 右上リンク */
 .navbar-link a {
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1rem;  
   color: $color-text;
   font-weight: 600;
   margin-left: 12px;
