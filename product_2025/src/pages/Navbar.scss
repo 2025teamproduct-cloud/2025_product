@@ -131,11 +131,11 @@ $color-accent: #ffb74d;
   }
 
   .subTitle {
-    font-size: 8px;
+    display: none;   // ← これでスマホで非表示！
   }
 
   .navbar-logo {
-    max-width: 20%; /* さらに縮小 */
+    max-width: 20%;
     max-height: 40px;
   }
 
@@ -162,24 +162,23 @@ $color-accent: #ffb74d;
    小型スマホ対応（~400px）
    =========================== */
 @media (max-width: 400px) {
+
+  .subTitle {
+    display: none;   // ← 400px 以下も同様！
+  }
+
   .navbar {
     height: 50px;
     padding: 0 10px;
   }
 
   .navbar-logo {
-    max-width: 24%; /* さらに小型画面のため縮小 */
+    max-width: 24%;
     max-height: 36px;
-  }
-
-  .subTitle {
-    font-size: 8px;
   }
 
   .navbar-title {
     font-size: clamp(0.85rem, 5vw, 1.15rem);
-    display: flex;
-    align-items: center;
 
     .navbar-home-link {
       padding: 3px 2px;
@@ -196,4 +195,3 @@ $color-accent: #ffb74d;
     padding: 7px 4px;
   }
 }
-
