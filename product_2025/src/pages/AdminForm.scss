@@ -1,268 +1,4 @@
-// // 共通カラー
-// $color-header: #ffec8f;
-// $color-body: #fffed7;
-// $color-footer: #ffec8f;
-
-// $color-border: rgba(0, 0, 0, 0.1);
-// $color-text: #333;
-// $color-accent: #ffd34a;
-
-// // 共通影
-// $shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-// /* コンテナ（中央寄せ） */
-// .container {
-//     max-width: 980px;
-//     margin: 20px auto;
-//     padding: 0 16px;
-// }
-
-// /* フォームカード */
-// form {
-//     background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9));
-//     border: 1px solid $color-border;
-//     border-radius: 10px;
-//     padding: 18px;
-//     box-shadow: $shadow;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 12px;
-// }
-
-// .addForm {
-//     width: 100%;                 // 親幅をフルに
-//     display: flex;               // 必要に応じて flex に
-//     flex-direction: column;      // 入力欄縦並び
-//     border: 1px solid rgba(0, 0, 0, 0.1);
-//     border-radius: 8px;
-//     padding: 4px 8px;            // 任意で内側余白
-//     box-sizing: border-box;      // パディング込みで幅を計算
-// }
-
-// .addForm input {
-//     width: 100%;                 // 子 input もフル幅
-//     border: none;
-//     border-bottom: 2px solid rgb(153, 153, 153);
-//     border-radius: 0;
-//     padding: 10px 0;             // 横パディングは addForm 側で
-//     background: white;
-//     font-size: 0.95rem;
-// }
-
-
-// /* 見出し */
-// form h2,
-// form h3 {
-//     margin: 0;
-//     font-size: 1.25rem;
-// }
-
-// /* 入力要素 */
-// input[type="text"],
-// input[type="number"],
-// textarea,
-// select {
-//     width: 100%;
-//     padding: 10px 12px;
-//     border: none;                       // 上左右の枠線を消す
-//     border-bottom: 2px solid #000;      // 下線のみ表示
-//     border-radius: 0;                    // 下線重視で角丸なし
-//     background: white;                   // デフォルト背景
-//     font-size: 0.95rem;
-//     color: $color-text;
-//     outline: none;
-//     box-shadow: none;                    // 下に出る薄い影を消す
-//     transition: background 0.12s ease, border-color 0.12s ease;
-// }
-
-// /* プレースホルダー */
-// input::placeholder,
-// textarea::placeholder {
-//     color: rgba(0, 0, 0, 0.35);
-// }
-
-// /* フォーカス時 */
-// input:focus,
-// textarea:focus,
-// select:focus {
-//     background: #fff8c4;                 // 選択時の背景色
-//     border-bottom-color: $color-accent;  // 下線色をアクセントに
-//     box-shadow: none;                     // 余計な影を消す
-// }
-
-// /* fieldset 全体 */
-// fieldset {
-//     border: 1px solid $color-border;
-//     border-radius: 10px;
-//     padding: 16px;
-//     margin-bottom: 16px;
-//     display: flex;
-//     flex-direction: column; /* 縦並び */
-//     gap: 12px;
-// }
-
-// legend {
-//     font-weight: 700;
-//     padding: 0 8px;
-// }
-
-// /* 営業時間入力エリア */
-// .hours-list {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 8px;
-// }
-
-// .hours-list .hours-item {
-//     display: flex;
-//     flex-direction: column; /* 縦並び */
-//     gap: 6px;
-// }
-
-// /* 営業時間追加ボタン */
-// .hours-list .btn-add {
-//     background: transparent;
-//     color: $color-text;
-//     border: 1px dashed rgba(0, 0, 0, 0.08);
-//     padding: 8px 12px;
-//     border-radius: 8px;
-//     cursor: pointer;
-//     width: fit-content;
-// }
-
-// .hours-list .btn-add:hover {
-//     background: rgba(255, 211, 74, 0.1);
-// }
-
-// /* 営業時間削除ボタン */
-// .hours-list .btn-remove {
-//     align-self: flex-start;
-//     padding: 6px 10px;
-//     border-radius: 6px;
-//     border: 1px solid rgba(0, 0, 0, 0.15);
-//     background: #ffd6d6;
-//     color: #8a1b1b;
-//     cursor: pointer;
-//     font-size: 0.9rem;
-//     margin-top: 4px;
-//     transition: all 0.15s ease;
-// }
-
-// .hours-list .btn-remove:hover {
-//     background: #ffb3b3;
-//     transform: translateY(-1px);
-// }
-
-// /* 送信ボタン */
-// button[type="submit"] {
-//     background: linear-gradient(180deg, $color-accent, darken($color-accent, 6%));
-//     color: #222;
-//     box-shadow: 0 6px 18px rgba(255, 211, 74, 0.18);
-//     border-radius: 8px;
-//     border: 1px solid rgba(0, 0, 0, 0.06);
-//     padding: 10px 14px;
-//     font-weight: 600;
-//     font-size: 0.95rem;
-//     cursor: pointer;
-// }
-
-// button[type="submit"]:hover {
-//     transform: translateY(-2px);
-// }
-
-// /* メッセージ表示 */
-// .message {
-//     margin-top: 12px;
-//     padding: 10px 12px;
-//     border-radius: 8px;
-//     background: rgba(0, 0, 0, 0.03);
-//     color: $color-text;
-//     font-weight: 600;
-// }
-
-// /* タブレット（中画面）対応 */
-// @media screen and (max-width: 768px) {
-//   .container {
-//     max-width: 720px;
-//     padding: 0 12px;
-//   }
-
-//   form {
-//     padding: 16px;
-//   }
-
-//   .addForm input,
-//   input[type="text"],
-//   input[type="number"],
-//   textarea,
-//   select {
-//     font-size: 0.9rem;
-//     padding: 8px 10px;
-//   }
-
-//   form h2,
-//   form h3 {
-//     font-size: 1.15rem;
-//   }
-
-//   .hours-list .hours-item {
-//     gap: 4px;
-//   }
-
-//   button[type="submit"] {
-//     font-size: 0.9rem;
-//     padding: 8px 12px;
-//   }
-// }
-
-// /* スマホ（小画面）対応 */
-// @media screen and (max-width: 480px) {
-//   .container {
-//     max-width: 100%;
-//     margin: 10px auto;
-//     padding: 0 8px;
-//   }
-
-//   form {
-//     padding: 12px;
-//   }
-
-//   .addForm input,
-//   input[type="text"],
-//   input[type="number"],
-//   textarea,
-//   select {
-//     font-size: 0.85rem;
-//     padding: 6px 8px;
-//   }
-
-//   form h2,
-//   form h3 {
-//     font-size: 1rem;
-//   }
-
-//   .hours-list {
-//     gap: 6px;
-//   }
-
-//   .hours-list .hours-item {
-//     flex-direction: column;
-//     gap: 4px;
-//   }
-
-//   .hours-list .btn-add,
-//   .hours-list .btn-remove {
-//     padding: 6px 8px;
-//     font-size: 0.85rem;
-//   }
-
-//   button[type="submit"] {
-//     font-size: 0.85rem;
-//     padding: 6px 10px;
-//   }
-// }
-
-
+// 共通カラー
 $color-header: #ffec8f;
 $color-body: #fffed7;
 $color-footer: #ffec8f;
@@ -271,82 +7,257 @@ $color-border: rgba(0, 0, 0, 0.1);
 $color-text: #333;
 $color-accent: #ffd34a;
 
+// 共通影
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-/* fieldset 全体（少し縮めた版） */
+/* コンテナ（中央寄せ） */
+.container {
+    max-width: 980px;
+    margin: 20px auto;
+    padding: 0 16px;
+}
+
+/* フォームカード */
+form {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9));
+    border: 1px solid $color-border;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: $shadow;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.addForm {
+    width: 100%;                 // 親幅をフルに
+    display: flex;               // 必要に応じて flex に
+    flex-direction: column;      // 入力欄縦並び
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 4px 8px;            // 任意で内側余白
+    box-sizing: border-box;      // パディング込みで幅を計算
+}
+
+.addForm input {
+    width: 100%;                 // 子 input もフル幅
+    border: none;
+    border-bottom: 2px solid rgb(153, 153, 153);
+    border-radius: 0;
+    padding: 10px 0;             // 横パディングは addForm 側で
+    background: white;
+    font-size: 0.95rem;
+}
+
+
+/* 見出し */
+form h2,
+form h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+/* 入力要素 */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;                       // 上左右の枠線を消す
+    border-bottom: 2px solid #000;      // 下線のみ表示
+    border-radius: 0;                    // 下線重視で角丸なし
+    background: white;                   // デフォルト背景
+    font-size: 0.95rem;
+    color: $color-text;
+    outline: none;
+    box-shadow: none;                    // 下に出る薄い影を消す
+    transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+/* プレースホルダー */
+input::placeholder,
+textarea::placeholder {
+    color: rgba(0, 0, 0, 0.35);
+}
+
+/* フォーカス時 */
+input:focus,
+textarea:focus,
+select:focus {
+    background: #fff8c4;                 // 選択時の背景色
+    border-bottom-color: $color-accent;  // 下線色をアクセントに
+    box-shadow: none;                     // 余計な影を消す
+}
+
+/* fieldset 全体 */
 fieldset {
     border: 1px solid $color-border;
     border-radius: 10px;
-    padding: 12px;        // ← 16px → 12px に縮小
-    margin-bottom: 12px;  // ← 16px → 12px
+    padding: 16px;
+    margin-bottom: 16px;
     display: flex;
-    flex-direction: column;
-    gap: 8px;             // ← 12px → 8px
+    flex-direction: column; /* 縦並び */
+    gap: 12px;
 }
 
 legend {
     font-weight: 700;
-    padding: 0 6px;       // ← 0 8px → 0 6px（軽めに）
+    padding: 0 8px;
 }
 
-/* 営業時間入力エリア（全体を少し縮小） */
+/* 営業時間入力エリア */
 .hours-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;             // ← 8px → 6px
+    gap: 8px;
 }
 
 .hours-list .hours-item {
     display: flex;
-    flex-direction: column;
-    gap: 4px;             // ← 6px → 4px
+    flex-direction: column; /* 縦並び */
+    gap: 6px;
 }
 
-/* =========================
-   レスポンシブ（768px 以下）
-   ========================= */
-@media screen and (max-width: 768px) {
+/* 営業時間追加ボタン */
+.hours-list .btn-add {
+    background: transparent;
+    color: $color-text;
+    border: 1px dashed rgba(0, 0, 0, 0.08);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: fit-content;
+}
 
-  fieldset {
-    padding: 10px;        // ← 12px → 10px
-    margin-bottom: 10px;
+.hours-list .btn-add:hover {
+    background: rgba(255, 211, 74, 0.1);
+}
+
+/* 営業時間削除ボタン */
+.hours-list .btn-remove {
+    align-self: flex-start;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: #ffd6d6;
+    color: #8a1b1b;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    transition: all 0.15s ease;
+}
+
+.hours-list .btn-remove:hover {
+    background: #ffb3b3;
+    transform: translateY(-1px);
+}
+
+/* 送信ボタン */
+button[type="submit"] {
+    background: linear-gradient(180deg, $color-accent, darken($color-accent, 6%));
+    color: #222;
+    box-shadow: 0 6px 18px rgba(255, 211, 74, 0.18);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+}
+
+/* メッセージ表示 */
+.message {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.03);
+    color: $color-text;
+    font-weight: 600;
+}
+
+/* タブレット（中画面）対応 */
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 720px;
+    padding: 0 12px;
+  }
+
+  form {
+    padding: 16px;
+  }
+
+  .addForm input,
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  form h2,
+  form h3 {
+    font-size: 1.15rem;
+  }
+
+  .hours-list .hours-item {
+    gap: 4px;
+  }
+
+  button[type="submit"] {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+/* スマホ（小画面）対応 */
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 0 8px;
+  }
+
+  form {
+    padding: 12px;
+  }
+
+  .addForm input,
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+
+  form h2,
+  form h3 {
+    font-size: 1rem;
+  }
+
+  .hours-list {
     gap: 6px;
   }
 
-  legend {
-    padding: 0 6px;
-    font-size: 0.95rem;
-  }
-
-  .hours-list {
-    gap: 5px;
-  }
-
   .hours-list .hours-item {
-    gap: 4px;
-  }
-}
-
-/* =========================
-   レスポンシブ（480px 以下）
-   ========================= */
-@media screen and (max-width: 480px) {
-
-  fieldset {
-    padding: 8px;         // ← 10px → 8px
-    margin-bottom: 8px;
-    gap: 5px;
-  }
-
-  legend {
-    padding: 0 5px;
-    font-size: 0.9rem;
-  }
-
-  .hours-list {
+    flex-direction: column;
     gap: 4px;
   }
 
-  .hours-list .hours-item {
-    gap: 3px;
+  .hours-list .btn-add,
+  .hours-list .btn-remove {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+
+  button[type="submit"] {
+    font-size: 0.85rem;
+    padding: 6px 10px;
   }
 }
