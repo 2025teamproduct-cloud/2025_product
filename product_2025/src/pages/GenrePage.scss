@@ -242,40 +242,41 @@ $color-accent: #ffd34a;
   }
 
   .genre-map {
-    flex: none !important;   // ← これで勝手に縦に伸びなくなる
+    flex: none !important; // ← これで勝手に縦に伸びなくなる
     height: 300px !important;
   }
 
   .genre-list {
-    flex: none !important;  
+    flex: none !important;
     height: 300px !important;
 
-  .genre-shop-item {
-    padding: 4px 6px;
-    font-size: 0.85rem;
-  }
+    .genre-shop-item {
+      padding: 4px 6px;
+      font-size: 0.85rem;
+    }
 
-  .genre-bottom h2 {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
+    .genre-bottom h2 {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
 
-  .genre-back-btn {
-    padding: 10px 20px;
-    font-size: 0.85rem;
-    margin-bottom: 80px;
-  }
+    .genre-back-btn {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      margin-bottom: 80px;
+    }
 
-  .shop-actions {
-    gap: 6px;
-  }
+    .shop-actions {
+      gap: 6px;
+    }
 
-  .shop-actions .visited-btn {
-    padding: 4px 8px;
-    font-size: 0.8rem;
-  }
+    .shop-actions .visited-btn {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+    }
 
-  #stamp {
-    margin-left: 6px;
+    #stamp {
+      margin-left: 6px;
+    }
   }
 }
