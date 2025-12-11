@@ -26,6 +26,32 @@ import L from "leaflet";
 import "./StationPage.scss";
 import { isVisited, toggleVisited } from "../utils/visitedUtils";
 
+
+// ------------------------
+// 🌟 追加：Map のリサイズ対応
+// ------------------------
+const ResizeHandler = () => {
+  const map = useMap();
+  useEffect(() => {
+    const handleResize = () => {
+      map.invalidateSize();
+    };
+    window.addEventListener("resize", handleResize);
+
+    // 初回描画後にもリサイズ発火
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 300);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [map]);
+
+  return null;
+};
+
+
 // 青ピン
 const blueIcon = new L.Icon({
   iconUrl:
@@ -50,11 +76,17 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
+
 // マップを店の位置に移動
 const FlyToShop = ({ shop, markerRef }) => {
   const map = useMap();
   useEffect(() => {
     if (shop?.lat && shop?.lng && markerRef) {
+      // 🌟 追加：移動前にサイズ再計算
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 150);
+
       const offsetX = 150;
       const point = map.latLngToContainerPoint([shop.lat, shop.lng]);
       const targetPoint = L.point(point.x - offsetX, point.y);
@@ -64,8 +96,11 @@ const FlyToShop = ({ shop, markerRef }) => {
       markerRef.openPopup();
     }
   }, [shop, map, markerRef]);
+
   return null;
 };
+
+
 
 const StationPage = () => {
   const { station } = useParams();
@@ -123,7 +158,7 @@ const StationPage = () => {
     fetchOca();
   }, [station]);
 
-  // ブックマーク判定
+  // ブックマーク & 訪問済み
   useEffect(() => {
     const fetchBookmarks = async () => {
       if (user && shops.length > 0) {
@@ -182,12 +217,14 @@ const StationPage = () => {
             minZoom={15}
             style={{ width: "100%", height: "100%" }}
           >
+            {/* 🌟 ResizeHandler を追加 */}
+            <ResizeHandler />
+
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="&copy; OpenStreetMap contributors"
             />
 
-            {/* 駅に該当するショップ */}
             {shops.map((shop) => (
               <Marker
                 key={shop.id}
@@ -242,7 +279,6 @@ const StationPage = () => {
               </Marker>
             )}
 
-            {/* 選択した店へ移動 */}
             {selectedShop && (
               <FlyToShop
                 shop={selectedShop}
