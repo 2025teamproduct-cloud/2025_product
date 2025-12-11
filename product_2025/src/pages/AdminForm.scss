@@ -262,6 +262,16 @@
 //   }
 // }
 
+
+$color-header: #ffec8f;
+$color-body: #fffed7;
+$color-footer: #ffec8f;
+
+$color-border: rgba(0, 0, 0, 0.1);
+$color-text: #333;
+$color-accent: #ffd34a;
+
+
 /* fieldset 全体（少し縮めた版） */
 fieldset {
     border: 1px solid $color-border;
