@@ -12,6 +12,9 @@ const Navbar = () => {
           <Link to="/" className="navbar-home-link">
             <img src={SimpleLogo} alt="logo" className="navbar-logo" />
             近場のグルメ2
+
+          <div className="subTitle">～あなたのお昼を楽しいものに～</div>
+
           </Link>
         </h1>
 
