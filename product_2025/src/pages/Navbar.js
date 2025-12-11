@@ -13,7 +13,7 @@ const Navbar = () => {
             <img src={SimpleLogo} alt="logo" className="navbar-logo" />
             近場のグルメ2
 
-          <div className="subTitle">～あなたのお昼を楽しいものに～</div>
+          <div className="subTitle">～あなたのランチを楽しいものに～</div>
 
           </Link>
         </h1>
