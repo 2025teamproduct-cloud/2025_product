@@ -42,7 +42,7 @@ const ResizeHandler = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // 初期表示でも必ず発火（スマホの地図消え対策）
+    // 初期表示でも必ず発火
     setTimeout(() => {
       map.invalidateSize();
     }, 500);
@@ -57,7 +57,7 @@ const ResizeHandler = () => {
 
 
 // ------------------------
-// 🌟 追加：画面幅を監視してレイアウト変化時に地図リサイズ
+// 🌟 画面幅変化時のマップ再描画
 // ------------------------
 const useResponsiveMapFix = (mapRef) => {
   useEffect(() => {
@@ -70,7 +70,6 @@ const useResponsiveMapFix = (mapRef) => {
     };
 
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, [mapRef]);
 };
@@ -101,7 +100,17 @@ const redIcon = new L.Icon({
 });
 
 
-// マップを店の位置に移動
+// HHmm → HH:mm
+const formatTime = (num) => {
+  if (!num) return "";
+  const str = num.toString().padStart(4, "0");
+  const h = str.slice(0, 2);
+  const m = str.slice(2);
+  return `${h}:${m}`;
+};
+
+
+// マップ移動
 const FlyToShop = ({ shop, markerRef }) => {
   const map = useMap();
 
@@ -136,13 +145,12 @@ const StationPage = () => {
   const [visitedIds, setVisitedIds] = useState([]);
   const navigate = useNavigate();
 
-  const mapRef = useRef(null); // 🌟 追加
+  const mapRef = useRef(null);
   const markerRefs = useRef({});
 
-  // スマホ時の flex 変更を検知して地図リサイズ（🌟必須）
   useResponsiveMapFix(mapRef);
 
-  // 認証状態監視
+  // 認証
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -150,7 +158,7 @@ const StationPage = () => {
     return () => unsubscribe();
   }, []);
 
-  // Firestore から駅別ショップ取得
+  // Firestore 取得
   useEffect(() => {
     const fetchShops = async () => {
       const q = query(collection(db, "shops"), where("station", "==", station));
@@ -168,7 +176,6 @@ const StationPage = () => {
       );
     };
 
-    // OCA の情報取得
     const fetchOca = async () => {
       const docRef = doc(db, "default", "default");
       const snap = await getDoc(docRef);
@@ -215,20 +222,44 @@ const StationPage = () => {
   }, [user, shops]);
 
 
+  // ブックマーク
+  const handleBookmarkClick = async (shop) => {
+    if (!user) {
+      alert("ブックマークするにはログインが必要です。");
+      return;
+    }
+
+    const newState = await toggleBookmark(user.uid, shop);
+    setBookmarkedIds((prev) =>
+      newState ? [...prev, shop.id] : prev.filter((id) => id !== shop.id)
+    );
+  };
+
+  // 訪問済み
+  const handleVisitedClick = async (shop) => {
+    if (!user) {
+      alert("訪問記録にはログインが必要です。");
+      return;
+    }
+    const newState = await toggleVisited(user.uid, shop);
+    setVisitedIds((prev) =>
+      newState ? [...prev, shop.id] : prev.filter((id) => id !== shop.id)
+    );
+  };
+
+
   return (
     <div className="genre-page">
       <div className="genre-content">
         <div className="genre-map">
 
-          {/* 🌟 mapRef を MapContainer にセット */}
           <MapContainer
-            whenCreated={(map) => (mapRef.current = map)}  // ←追加
+            whenCreated={(map) => (mapRef.current = map)}
             center={[34.672935, 135.492627]}
             zoom={18}
             minZoom={15}
             style={{ width: "100%", height: "100%" }}
           >
-
             <ResizeHandler />
 
             <TileLayer
@@ -250,6 +281,45 @@ const StationPage = () => {
                   <strong>{shop.name}</strong>
                   <br />
                   {shop.address}
+                  <br />
+
+                  {/* 営業時間 */}
+                  {shop.businessHours && shop.businessHours.length > 0 && (
+                    <div className="business-hours">
+                      <h4>営業時間</h4>
+                      {shop.businessHours.map((time, idx) => (
+                        <div key={idx}>
+                          {time.label ? `${time.label}: ` : ""}
+                          {formatTime(time.open)} - {formatTime(time.close)}
+                        </div>
+                      ))}
+                      <br />
+                    </div>
+                  )}
+
+                  <button
+                    className="popup-bookmark-btn"
+                    onClick={() => handleBookmarkClick(shop)}
+                  >
+                    {bookmarkedIds.includes(shop.id)
+                      ? "❤️ 解除"
+                      : "🤍 ブックマーク"}
+                  </button>
+
+                  <button
+                    className={`visited-btn ${
+                      visitedIds.includes(shop.id) ? "active" : ""
+                    }`}
+                    id="stamp"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleVisitedClick(shop);
+                    }}
+                  >
+                    {visitedIds.includes(shop.id)
+                      ? "★ 訪問済み"
+                      : "☆ 行った！"}
+                  </button>
                 </Popup>
               </Marker>
             ))}
@@ -278,7 +348,6 @@ const StationPage = () => {
                 markerRef={markerRefs.current[selectedShop.id]}
               />
             )}
-
           </MapContainer>
         </div>
 
@@ -287,10 +356,66 @@ const StationPage = () => {
           {shops.map((shop) => (
             <div
               key={shop.id}
-              className={`genre-shop-item ${selectedShop?.id === shop.id ? "active" : ""}`}
+              className={`genre-shop-item ${
+                selectedShop?.id === shop.id ? "active" : ""
+              }`}
               onClick={() => setSelectedShop(shop)}
             >
               <div className="shop-name">{shop.name}</div>
+
+              <div className="shop-meta">
+                <span className="price">¥{shop.priceRange}</span>
+                <span className="station"> / {shop.station}</span>
+              </div>
+
+              {/* 営業時間 */}
+              {shop.businessHours && shop.businessHours.length > 0 && (
+                <div className="shop-hours">
+                  {shop.businessHours.map((time, i) => (
+                    <div key={i}>
+                      {time.label ? `${time.label}: ` : ""}
+                      {formatTime(time.open)} - {formatTime(time.close)}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="shop-actions">
+                <button
+                  className={`bookmark-btn ${
+                    bookmarkedIds.includes(shop.id) ? "active" : ""
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const btn = e.currentTarget;
+                    handleBookmarkClick(shop);
+
+                    setTimeout(() => {
+                      if (btn && btn.classList) {
+                        btn.classList.add("spark");
+                        setTimeout(() => btn.classList.remove("spark"), 700);
+                      }
+                    }, 50);
+                  }}
+                >
+                  <span className="star-icon">
+                    {bookmarkedIds.includes(shop.id) ? "❤️" : "🤍"}
+                  </span>
+                  <span className="sparkles"></span>
+                </button>
+
+                <button
+                  className={`visited-btn ${
+                    visitedIds.includes(shop.id) ? "active" : ""
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleVisitedClick(shop);
+                  }}
+                >
+                  {visitedIds.includes(shop.id) ? "行った！" : "ここ行く！"}
+                </button>
+              </div>
             </div>
           ))}
         </div>
