@@ -98,7 +98,7 @@ export default function AdminForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit} className="Adminform">
       <h2>店舗追加フォーム</h2>
 
       <fieldset className="desc">
