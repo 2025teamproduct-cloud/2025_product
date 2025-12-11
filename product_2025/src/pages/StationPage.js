@@ -23,7 +23,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import "./GenrePage.scss";
+import "./StationPage.scss";
 import { isVisited, toggleVisited } from "../utils/visitedUtils";
 
 // 青ピン
