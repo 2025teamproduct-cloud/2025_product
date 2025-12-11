@@ -10,6 +10,7 @@ $color-accent: #ffd34a;
 // ===== ページ全体 =====
 .genre-page {
   padding-top: 60px; // Navbarの高さ分ずらす
+  padding-bottom: 80px;
   background: $color-body;
   color: $color-text;
   min-height: 100vh;
@@ -263,7 +264,6 @@ $color-accent: #ffd34a;
     .genre-back-btn {
       padding: 10px 20px;
       font-size: 0.85rem;
-      margin-bottom: 200px;
     }
 
     .shop-actions {

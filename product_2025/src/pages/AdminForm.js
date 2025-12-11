@@ -101,7 +101,7 @@ export default function AdminForm() {
     <form onSubmit={handleSubmit} >
       <h2>店舗追加フォーム</h2>
 
-      <fieldset>
+      <fieldset className="desc">
         <legend>基本情報</legend>
         <div className="addForm">
         <input
