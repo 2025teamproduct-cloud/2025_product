@@ -32,16 +32,20 @@ import { isVisited, toggleVisited } from "../utils/visitedUtils";
 // ------------------------
 const ResizeHandler = () => {
   const map = useMap();
+
   useEffect(() => {
     const handleResize = () => {
-      map.invalidateSize();
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 200);
     };
+
     window.addEventListener("resize", handleResize);
 
-    // 初回描画後にもリサイズ発火
+    // 初期表示でも必ず発火（スマホの地図消え対策）
     setTimeout(() => {
       map.invalidateSize();
-    }, 300);
+    }, 500);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -49,6 +53,26 @@ const ResizeHandler = () => {
   }, [map]);
 
   return null;
+};
+
+
+// ------------------------
+// 🌟 追加：画面幅を監視してレイアウト変化時に地図リサイズ
+// ------------------------
+const useResponsiveMapFix = (mapRef) => {
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapRef.current) {
+        setTimeout(() => {
+          mapRef.current.invalidateSize();
+        }, 300);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mapRef]);
 };
 
 
@@ -80,12 +104,12 @@ const redIcon = new L.Icon({
 // マップを店の位置に移動
 const FlyToShop = ({ shop, markerRef }) => {
   const map = useMap();
+
   useEffect(() => {
     if (shop?.lat && shop?.lng && markerRef) {
-      // 🌟 追加：移動前にサイズ再計算
       setTimeout(() => {
         map.invalidateSize();
-      }, 150);
+      }, 200);
 
       const offsetX = 150;
       const point = map.latLngToContainerPoint([shop.lat, shop.lng]);
@@ -111,7 +135,12 @@ const StationPage = () => {
   const [bookmarkedIds, setBookmarkedIds] = useState([]);
   const [visitedIds, setVisitedIds] = useState([]);
   const navigate = useNavigate();
+
+  const mapRef = useRef(null); // 🌟 追加
   const markerRefs = useRef({});
+
+  // スマホ時の flex 変更を検知して地図リサイズ（🌟必須）
+  useResponsiveMapFix(mapRef);
 
   // 認証状態監視
   useEffect(() => {
@@ -185,39 +214,21 @@ const StationPage = () => {
     fetchVisited();
   }, [user, shops]);
 
-  const handleBookmarkClick = async (shop) => {
-    if (!user) {
-      alert("ブックマークするにはログインが必要です。");
-      return;
-    }
-    const newState = await toggleBookmark(user.uid, shop);
-    setBookmarkedIds((prev) =>
-      newState ? [...prev, shop.id] : prev.filter((id) => id !== shop.id)
-    );
-  };
-
-  const handleVisitedClick = async (shop) => {
-    if (!user) {
-      alert("訪問記録にはログインが必要です。");
-      return;
-    }
-    const newState = await toggleVisited(user.uid, shop);
-    setVisitedIds((prev) =>
-      newState ? [...prev, shop.id] : prev.filter((id) => id !== shop.id)
-    );
-  };
 
   return (
     <div className="genre-page">
       <div className="genre-content">
         <div className="genre-map">
+
+          {/* 🌟 mapRef を MapContainer にセット */}
           <MapContainer
+            whenCreated={(map) => (mapRef.current = map)}  // ←追加
             center={[34.672935, 135.492627]}
             zoom={18}
             minZoom={15}
             style={{ width: "100%", height: "100%" }}
           >
-            {/* 🌟 ResizeHandler を追加 */}
+
             <ResizeHandler />
 
             <TileLayer
@@ -239,28 +250,10 @@ const StationPage = () => {
                   <strong>{shop.name}</strong>
                   <br />
                   {shop.address}
-                  <br />
-                  <button
-                    className="popup-bookmark-btn"
-                    onClick={() => handleBookmarkClick(shop)}
-                  >
-                    {bookmarkedIds.includes(shop.id) ? "❤️ 解除" : "🤍 ブックマーク"}
-                  </button>
-
-                  <button
-                    className={`visited-btn ${visitedIds.includes(shop.id) ? "active" : ""}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleVisitedClick(shop);
-                    }}
-                  >
-                    {visitedIds.includes(shop.id) ? "★ 訪問済み" : "☆ 行った！"}
-                  </button>
                 </Popup>
               </Marker>
             ))}
 
-            {/* OCA（赤ピン） */}
             {oca && (
               <Marker
                 key={oca.id}
@@ -285,6 +278,7 @@ const StationPage = () => {
                 markerRef={markerRefs.current[selectedShop.id]}
               />
             )}
+
           </MapContainer>
         </div>
 
@@ -297,41 +291,6 @@ const StationPage = () => {
               onClick={() => setSelectedShop(shop)}
             >
               <div className="shop-name">{shop.name}</div>
-              <div className="shop-meta">
-                <span className="price">¥{shop.priceRange}</span>
-                <span className="station"> / {shop.station}</span>
-              </div>
-
-              <div className="shop-actions">
-                <button
-                  className={`bookmark-btn ${bookmarkedIds.includes(shop.id) ? "active" : ""}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const btn = e.currentTarget;
-                    handleBookmarkClick(shop);
-
-                    setTimeout(() => {
-                      btn.classList.add("spark");
-                      setTimeout(() => btn.classList.remove("spark"), 700);
-                    }, 50);
-                  }}
-                >
-                  <span className="star-icon">
-                    {bookmarkedIds.includes(shop.id) ? "❤️" : "🤍"}
-                  </span>
-                  <span className="sparkles"></span>
-                </button>
-
-                <button
-                  className={`visited-btn ${visitedIds.includes(shop.id) ? "active" : ""}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleVisitedClick(shop);
-                  }}
-                >
-                  {visitedIds.includes(shop.id) ? "訪問済み" : "訪問する"}
-                </button>
-              </div>
             </div>
           ))}
         </div>
