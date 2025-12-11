@@ -242,13 +242,13 @@ $color-accent: #ffd34a;
   }
 
   .genre-map {
+    flex: none !important;   // ← これで勝手に縦に伸びなくなる
     height: 300px !important;
   }
 
   .genre-list {
+    flex: none !important;  
     height: 300px !important;
-    padding: 8px;
-  }
 
   .genre-shop-item {
     padding: 4px 6px;
