@@ -334,7 +334,7 @@ const GenrePage = () => {
                     handleVisitedClick(shop);
                   }}
                 >
-                  {visitedIds.includes(shop.id) ? "訪問済み" : "訪問する"}
+                  {visitedIds.includes(shop.id) ? "行った！" : "ここ行く！"}
                 </button>
               </div>
             </div>
