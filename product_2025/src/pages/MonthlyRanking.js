@@ -149,7 +149,11 @@ const MonthlyRanking = () => {
 
           return (
             <li key={r.userId} className="ranking-item">
-              <div className="main-row">
+              {/* ★ item全体で開閉 */}
+              <div
+                className="main-row"
+                onClick={() => toggleOpen(r.userId)}
+              >
                 <span className="rank-num">{rank}位</span>
 
                 <div className="name">{r.displayName} さん</div>
@@ -157,10 +161,8 @@ const MonthlyRanking = () => {
                 <div className="right-box">
                   <div className="count">{r.count} 店舗</div>
 
-                  <div
-                    className="toggle-icon"
-                    onClick={() => toggleOpen(r.userId)}
-                  >
+                  {/* 表示のみ */}
+                  <div className="toggle-icon">
                     {openUsers[r.userId] ? "▲" : "▼"}
                   </div>
                 </div>
