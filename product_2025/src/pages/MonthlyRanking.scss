@@ -64,6 +64,7 @@ $color-accent: #ffb74d;
   border-radius: 10px;
   transition: transform 180ms ease, box-shadow 180ms ease;
   color: $color-text;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-4px);
