@@ -153,3 +153,80 @@ $color-accent: #ffb74d;
     }
   }
 }
+
+.shop-list {
+  margin-left: 40px;
+  margin-top: 6px;
+  padding-left: 0;
+  list-style: none;
+
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 300ms ease,
+    opacity 200ms ease,
+    transform 200ms ease;
+
+  li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  &.open {
+    max-height: 500px; // 十分大きめ
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 月切り替えヘッダー */
+.month-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid $color-border;
+    background: white;
+    cursor: pointer;
+    font-weight: bold;
+
+    &:hover {
+      background: #fff3c0;
+    }
+  }
+}
+
+/* 店舗リスト展開アニメーション */
+.shop-list {
+  margin-left: 40px;
+  margin-top: 6px;
+  padding-left: 0;
+  list-style: none;
+
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 300ms ease,
+    opacity 200ms ease,
+    transform 200ms ease;
+
+  li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  &.open {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -16,6 +16,9 @@ const MonthlyRanking = () => {
   const [ranking, setRanking] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ★ 月切り替え用
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
   // 各ユーザーごとの開閉状態
   const [openUsers, setOpenUsers] = useState({});
 
@@ -26,23 +29,30 @@ const MonthlyRanking = () => {
     }));
   };
 
+  // ★ 月移動
+  const changeMonth = (diff) => {
+    setCurrentMonth((prev) => {
+      const d = new Date(prev);
+      d.setMonth(d.getMonth() + diff);
+      return d;
+    });
+  };
+
   useEffect(() => {
     const fetchRanking = async () => {
       setLoading(true);
       try {
-        const now = new Date();
-
         const startDate = new Date(
-          now.getFullYear(),
-          now.getMonth(),
+          currentMonth.getFullYear(),
+          currentMonth.getMonth(),
           1,
           0,
           0,
           0
         );
         const endDate = new Date(
-          now.getFullYear(),
-          now.getMonth() + 1,
+          currentMonth.getFullYear(),
+          currentMonth.getMonth() + 1,
           0,
           23,
           59,
@@ -97,6 +107,7 @@ const MonthlyRanking = () => {
         );
 
         setRanking(rankingWithNames);
+        setOpenUsers({}); // ★ 月変更時は閉じる
       } catch (err) {
         console.error("ランキング取得エラー:", err);
       }
@@ -104,26 +115,31 @@ const MonthlyRanking = () => {
     };
 
     fetchRanking();
-  }, []);
+  }, [currentMonth]);
 
   if (loading) return <p>ランキングを読み込み中...</p>;
   if (ranking.length === 0)
-    return <p>今月の訪問データがありません。</p>;
+    return <p>この月の訪問データがありません。</p>;
 
-  // ★ 同率順位用の変数（JSXの外）
+  // 同率順位用
   let lastRank = 0;
   let lastCount = null;
 
   return (
     <div className="ranking-container">
-      <h2>今月の訪問ランキング</h2>
+      {/* ★ 月切り替えヘッダー */}
+      <h2 className="month-header">
+        <button onClick={() => changeMonth(-1)}>◀</button>
+        {currentMonth.getFullYear()}年
+        {currentMonth.getMonth() + 1}月 の訪問ランキング
+        <button onClick={() => changeMonth(1)}>▶</button>
+      </h2>
 
       <ol className="ranking-list">
         {ranking.map((r, i) => {
           let rank;
 
           if (r.count === lastCount) {
-            // 同率
             rank = lastRank;
           } else {
             rank = i + 1;
@@ -150,13 +166,15 @@ const MonthlyRanking = () => {
                 </div>
               </div>
 
-              {openUsers[r.userId] && (
-                <ul className="shop-list">
-                  {r.shops.map((shop, idx) => (
-                    <li key={idx}>{shop}</li>
-                  ))}
-                </ul>
-              )}
+              <ul
+                className={`shop-list ${
+                  openUsers[r.userId] ? "open" : ""
+                }`}
+              >
+                {r.shops.map((shop, idx) => (
+                  <li key={idx}>{shop}</li>
+                ))}
+              </ul>
             </li>
           );
         })}
@@ -164,6 +182,5 @@ const MonthlyRanking = () => {
     </div>
   );
 };
-
 
 export default MonthlyRanking;
