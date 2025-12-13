@@ -19,14 +19,11 @@ const MonthlyRanking = () => {
   // ★ 月切り替え用
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  // 各ユーザーごとの開閉状態
-  const [openUsers, setOpenUsers] = useState({});
+  // ★ 開いているユーザー（1人だけ）
+  const [openUserId, setOpenUserId] = useState(null);
 
   const toggleOpen = (userId) => {
-    setOpenUsers((prev) => ({
-      ...prev,
-      [userId]: !prev[userId],
-    }));
+    setOpenUserId((prev) => (prev === userId ? null : userId));
   };
 
   // ★ 月移動
@@ -107,7 +104,7 @@ const MonthlyRanking = () => {
         );
 
         setRanking(rankingWithNames);
-        setOpenUsers({}); // ★ 月変更時は閉じる
+        setOpenUserId(null); // ★ 月変更時は閉じる
       } catch (err) {
         console.error("ランキング取得エラー:", err);
       }
@@ -147,9 +144,11 @@ const MonthlyRanking = () => {
             lastCount = r.count;
           }
 
+          const isOpen = openUserId === r.userId;
+
           return (
             <li key={r.userId} className="ranking-item">
-              {/* ★ item全体で開閉 */}
+              {/* ★ アコーディオン */}
               <div
                 className="main-row"
                 onClick={() => toggleOpen(r.userId)}
@@ -160,19 +159,13 @@ const MonthlyRanking = () => {
 
                 <div className="right-box">
                   <div className="count">{r.count} 店舗</div>
-
-                  {/* 表示のみ */}
                   <div className="toggle-icon">
-                    {openUsers[r.userId] ? "▲" : "▼"}
+                    {isOpen ? "▲" : "▼"}
                   </div>
                 </div>
               </div>
 
-              <ul
-                className={`shop-list ${
-                  openUsers[r.userId] ? "open" : ""
-                }`}
-              >
+              <ul className={`shop-list ${isOpen ? "open" : ""}`}>
                 {r.shops.map((shop, idx) => (
                   <li key={idx}>{shop}</li>
                 ))}
