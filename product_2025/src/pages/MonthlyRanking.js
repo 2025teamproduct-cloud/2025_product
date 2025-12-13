@@ -165,4 +165,5 @@ const MonthlyRanking = () => {
   );
 };
 
+
 export default MonthlyRanking;
