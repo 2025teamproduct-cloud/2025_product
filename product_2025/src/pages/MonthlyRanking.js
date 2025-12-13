@@ -16,7 +16,7 @@ const MonthlyRanking = () => {
   const [ranking, setRanking] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ▼ 各ユーザーごとの“開閉状態”を管理
+  // 各ユーザーごとの開閉状態
   const [openUsers, setOpenUsers] = useState({});
 
   const toggleOpen = (userId) => {
@@ -32,8 +32,23 @@ const MonthlyRanking = () => {
       try {
         const now = new Date();
 
-        const startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
-        const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+        const startDate = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          1,
+          0,
+          0,
+          0
+        );
+        const endDate = new Date(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          0,
+          23,
+          59,
+          59,
+          999
+        );
 
         const start = Timestamp.fromDate(startDate);
         const end = Timestamp.fromDate(endDate);
@@ -92,46 +107,61 @@ const MonthlyRanking = () => {
   }, []);
 
   if (loading) return <p>ランキングを読み込み中...</p>;
-  if (ranking.length === 0) return <p>今月の訪問データがありません。</p>;
+  if (ranking.length === 0)
+    return <p>今月の訪問データがありません。</p>;
+
+  // ★ 同率順位用の変数（JSXの外）
+  let lastRank = 0;
+  let lastCount = null;
 
   return (
     <div className="ranking-container">
       <h2>今月の訪問ランキング</h2>
+
       <ol className="ranking-list">
+        {ranking.map((r, i) => {
+          let rank;
 
-        {ranking.map((r, i) => (
-          <li key={r.userId} className="ranking-item">
-            <div className="main-row">
-              <span className="rank-num">{i + 1}位</span>
+          if (r.count === lastCount) {
+            // 同率
+            rank = lastRank;
+          } else {
+            rank = i + 1;
+            lastRank = rank;
+            lastCount = r.count;
+          }
 
-              <div className="name">{r.displayName} さん</div>
+          return (
+            <li key={r.userId} className="ranking-item">
+              <div className="main-row">
+                <span className="rank-num">{rank}位</span>
 
-              <div className="right-box">
-                <div className="count">{r.count} 店舗</div>
+                <div className="name">{r.displayName} さん</div>
 
-                <div
-                  className="toggle-icon"
-                  onClick={() => toggleOpen(r.userId)}
-                >
-                  {openUsers[r.userId] ? "▲" : "▼"}
+                <div className="right-box">
+                  <div className="count">{r.count} 店舗</div>
+
+                  <div
+                    className="toggle-icon"
+                    onClick={() => toggleOpen(r.userId)}
+                  >
+                    {openUsers[r.userId] ? "▲" : "▼"}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 折りたたみ領域 */}
-            {openUsers[r.userId] && (
-              <ul className="shop-list">
-                {r.shops.map((shop, idx) => (
-                  <li key={idx}>{shop}</li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-
+              {openUsers[r.userId] && (
+                <ul className="shop-list">
+                  {r.shops.map((shop, idx) => (
+                    <li key={idx}>{shop}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </div>
-
   );
 };
 
