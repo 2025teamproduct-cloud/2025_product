@@ -16,10 +16,8 @@ const MonthlyRanking = () => {
   const [ranking, setRanking] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ★ 月切り替え用（1日に固定）
-  const [currentMonth, setCurrentMonth] = useState(
-    new Date(new Date().getFullYear(), new Date().getMonth(), 1) // 初期値を1日に設定
-  );
+  // ★ 月切り替え用
+  const [currentMonth, setCurrentMonth] = useState(new Date());
 
   // ★ 開いているユーザー（1人だけ）
   const [openUserId, setOpenUserId] = useState(null);
@@ -31,12 +29,9 @@ const MonthlyRanking = () => {
   // ★ 月移動
   const changeMonth = (diff) => {
     setCurrentMonth((prev) => {
-      const next = new Date(prev.getFullYear(), prev.getMonth() + diff, 1);
-      const now = new Date();
-      const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-      if (next > thisMonth) return prev; // 未来月の移動を禁止（必要に応じて削除）
-      return next;
+      const d = new Date(prev);
+      d.setMonth(d.getMonth() + diff);
+      return d;
     });
   };
 
