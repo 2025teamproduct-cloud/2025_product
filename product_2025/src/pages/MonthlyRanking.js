@@ -9,6 +9,8 @@ import {
   doc,
   getDoc,
   Timestamp,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import "./MonthlyRanking.scss";
 
@@ -18,6 +20,9 @@ const MonthlyRanking = () => {
 
   // ★ 月切り替え用
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  // ★ 一番古い月
+  const [oldestMonth, setOldestMonth] = useState(null);
 
   // ★ 開いているユーザー（1人だけ）
   const [openUserId, setOpenUserId] = useState(null);
@@ -35,11 +40,41 @@ const MonthlyRanking = () => {
     });
   };
 
-  // ★ 今月判定（未来に進めないようにする）
+  // ★ 今月判定（未来に進めない）
   const now = new Date();
   const isCurrentMonth =
     currentMonth.getFullYear() === now.getFullYear() &&
     currentMonth.getMonth() === now.getMonth();
+
+  // ★ 最古月判定（過去に戻れない）
+  const isOldestMonth =
+    oldestMonth &&
+    currentMonth.getFullYear() === oldestMonth.getFullYear() &&
+    currentMonth.getMonth() === oldestMonth.getMonth();
+
+  // ★ 最古の visited データ取得（初回のみ）
+  useEffect(() => {
+    const fetchOldestMonth = async () => {
+      try {
+        const q = query(
+          collectionGroup(db, "visited"),
+          orderBy("visitedAt", "asc"),
+          limit(1)
+        );
+
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const data = snapshot.docs[0].data();
+          const date = data.visitedAt.toDate();
+          setOldestMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+        }
+      } catch (err) {
+        console.error("最古月取得エラー:", err);
+      }
+    };
+
+    fetchOldestMonth();
+  }, []);
 
   useEffect(() => {
     const fetchRanking = async () => {
@@ -110,7 +145,7 @@ const MonthlyRanking = () => {
         );
 
         setRanking(rankingWithNames);
-        setOpenUserId(null); // ★ 月変更時は閉じる
+        setOpenUserId(null);
       } catch (err) {
         console.error("ランキング取得エラー:", err);
       }
@@ -132,7 +167,12 @@ const MonthlyRanking = () => {
     <div className="ranking-container">
       {/* ★ 月切り替えヘッダー */}
       <h2 className="month-header">
-        <button onClick={() => changeMonth(-1)}>◀</button>
+        <button
+          onClick={() => changeMonth(-1)}
+          disabled={isOldestMonth}
+        >
+          ◀
+        </button>
 
         {currentMonth.getFullYear()}年
         {currentMonth.getMonth() + 1}月 の訪問ランキング
@@ -161,13 +201,11 @@ const MonthlyRanking = () => {
 
           return (
             <li key={r.userId} className="ranking-item">
-              {/* ★ アコーディオン */}
               <div
                 className="main-row"
                 onClick={() => toggleOpen(r.userId)}
               >
                 <span className="rank-num">{rank}位</span>
-
                 <div className="name">{r.displayName} さん</div>
 
                 <div className="right-box">
