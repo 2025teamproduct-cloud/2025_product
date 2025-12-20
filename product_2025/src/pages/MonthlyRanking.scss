@@ -231,3 +231,23 @@ $color-accent: #ffb74d;
     transform: translateY(0);
   }
 }
+
+/* ===== 店舗数が多い場合のスクロール対応 ===== */
+.shop-list.open {
+  overflow-y: auto;          // ← 縦スクロール有効化
+  padding-right: 6px;        // ← スクロールバー分の余白
+}
+
+/* スクロールバーの見た目（任意・Webkit系） */
+.shop-list.open::-webkit-scrollbar {
+  width: 6px;
+}
+
+.shop-list.open::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.shop-list.open::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
