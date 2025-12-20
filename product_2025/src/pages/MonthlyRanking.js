@@ -35,6 +35,12 @@ const MonthlyRanking = () => {
     });
   };
 
+  // ★ 今月判定（未来に進めないようにする）
+  const now = new Date();
+  const isCurrentMonth =
+    currentMonth.getFullYear() === now.getFullYear() &&
+    currentMonth.getMonth() === now.getMonth();
+
   useEffect(() => {
     const fetchRanking = async () => {
       setLoading(true);
@@ -118,7 +124,7 @@ const MonthlyRanking = () => {
   if (ranking.length === 0)
     return <p>この月の訪問データがありません。</p>;
 
-  // 同率順位用
+  // ★ 同率順位用
   let lastRank = 0;
   let lastCount = null;
 
@@ -127,9 +133,16 @@ const MonthlyRanking = () => {
       {/* ★ 月切り替えヘッダー */}
       <h2 className="month-header">
         <button onClick={() => changeMonth(-1)}>◀</button>
+
         {currentMonth.getFullYear()}年
         {currentMonth.getMonth() + 1}月 の訪問ランキング
-        <button onClick={() => changeMonth(1)}>▶</button>
+
+        <button
+          onClick={() => changeMonth(1)}
+          disabled={isCurrentMonth}
+        >
+          ▶
+        </button>
       </h2>
 
       <ol className="ranking-list">
