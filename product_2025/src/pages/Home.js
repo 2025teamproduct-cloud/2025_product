@@ -22,6 +22,10 @@ const Home = () => {
   const [genres, setGenres] = useState([]);
   const [stations, setStations] = useState([]);
   const [user, setUser] = useState(null);
+  /* ★ 追加：スプラッシュ制御（初回のみ） */
+  const [showSplash, setShowSplash] = useState(
+    !localStorage.getItem('splashShown')
+  );
   const navigate = useNavigate();
 
   // 🔹 ログイン状態を監視
@@ -31,6 +35,18 @@ const Home = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  /* ★ 追加：一定時間後にスプラッシュ終了 */
+  useEffect(() => {
+    if (!showSplash) return;
+
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+      localStorage.setItem('splashShown', 'true');
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [showSplash]);
 
   // 🔹 Firestore からジャンル一覧と駅一覧を取得
   useEffect(() => {
@@ -57,6 +73,13 @@ const Home = () => {
 
   return (
     <div className="home-container">
+
+      {/* ★ 追加：スプラッシュ（初回のみ） */}
+      {showSplash && (
+        <div className="splash">
+          <img src={Image3} alt="splash" />
+        </div>
+      )}
 
       {/* ▼▼ 追加：画像カルーセル ▼▼ */}
       <div className="home-carousel">
