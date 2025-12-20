@@ -153,6 +153,32 @@
   }
 }
 
+.splash {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: splashFade 2.5s forwards;
+}
+
+.splash img {
+  width: 200px;
+  animation: splashZoom 2.5s forwards;
+}
+
+@keyframes splashZoom {
+  0% { transform: scale(1); opacity: 1; }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes splashFade {
+  to { opacity: 0; visibility: hidden; }
+}
+
 /* ============================= */
 /*   レスポンシブデザイン追加     */
 /* ============================= */
