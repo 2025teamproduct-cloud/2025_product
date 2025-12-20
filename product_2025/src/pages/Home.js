@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import './Home.scss';
+import Image from "./img/Image.jpg";
 import Image3 from "./img/Image3.jpg";
 import Image4 from "./img/Image4.jpg";
 import Image5 from "./img/Image5.jpg";
@@ -77,7 +78,7 @@ const Home = () => {
       {/* ★ 追加：スプラッシュ（初回のみ） */}
       {showSplash && (
         <div className="splash">
-          <img src={Image3} alt="splash" />
+          <img src={Image} alt="splash" />
         </div>
       )}
 
