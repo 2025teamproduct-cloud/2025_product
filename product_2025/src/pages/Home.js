@@ -44,7 +44,7 @@ const Home = () => {
     const timer = setTimeout(() => {
       setShowSplash(false);
       localStorage.setItem('splashShown', 'true');
-    }, 2500);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, [showSplash]);
