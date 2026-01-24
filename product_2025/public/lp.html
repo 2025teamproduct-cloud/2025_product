@@ -1,171 +1,437 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>近場のグルメ2｜ランチ選びを、もっとスマートに</title>
-  <meta name="description" content="指定エリア10分圏内の飲食店を検索できるWebアプリ「近場のグルメ2」。ランチや放課後の悩みを解決します。" />
-  <style>
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      color: #333;
-      line-height: 1.7;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>近場のグルメ - お昼も放課後も、もう迷わない</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background: linear-gradient(135deg, #ff7a18, #ffb347);
-      color: #fff;
-      padding: 80px 20px;
-      text-align: center;
-    }
+        body {
+            font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
 
-    header h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ffdd7f 0%, #ffc850 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    header p {
-      font-size: 20px;
-      margin-bottom: 40px;
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
 
-    .btn {
-      display: inline-block;
-      padding: 14px 32px;
-      background: #fff;
-      color: #ff7a18;
-      font-weight: bold;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
 
-    .btn:hover {
-      background: #f2f2f2;
-    }
+        .hero-content {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
 
-    section h2 {
-      font-size: 36px;
-      text-align: center;
-      margin-bottom: 40px;
-    }
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
 
-    .problem,
-    .solution,
-    .features {
-      margin-bottom: 80px;
-    }
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #ff9500;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(255, 149, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
 
-    .problem ul,
-    .features ul {
-      list-style: none;
-      padding: 0;
-    }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 149, 0, 0.4);
+            background: #ff8000;
+        }
 
-    .problem li,
-    .features li {
-      background: #f7f7f7;
-      margin-bottom: 16px;
-      padding: 20px;
-      border-radius: 10px;
-    }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .solution p {
-      text-align: center;
-      font-size: 18px;
-    }
+        /* Problem Section */
+        .problem-section {
+            padding: 5rem 2rem;
+            background: #fffed7;
+            text-align: center;
+        }
 
-    .features li strong {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
+        .problem-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
 
-    .demo {
-      text-align: center;
-    }
+        .problems {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    .demo a {
-      margin-top: 20px;
-      display: inline-block;
-    }
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
 
-    footer {
-      background: #222;
-      color: #ccc;
-      padding: 40px 20px;
-      text-align: center;
-      font-size: 14px;
-    }
-  </style>
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .problem-card::before {
+            content: '😰';
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .features-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #ffdd7f 0%, #ffc850 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #ffdd7f 0%, #ffb84d 100%);
+            color: #333;
+        }
+
+        .how-it-works h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #ff9500;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 5rem 2rem;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button-secondary {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #ffdd7f;
+            color: #333;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(255, 221, 127, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 221, 127, 0.4);
+            background: #ffc850;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>お昼も放課後も、<br>もう迷わない。</h1>
+            <p>近場のグルメを発見して、<br>みんなとシェアしよう</p>
+            <a href="https://2025-product.vercel.app" class="cta-button">今すぐ始める →</a>
+        </div>
+    </section>
 
-<header>
-  <h1>近場のグルメ2</h1>
-  <p>「今日どこ行く？」を、もう悩まない。</p>
-  <a class="btn" href="https://2025-product.vercel.app/" target="_blank">
-    アプリを体験する
-  </a>
-</header>
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <h2>こんなお悩み、ありませんか?</h2>
+        <div class="problems">
+            <div class="problem-card">
+                <h3>いつも同じ店</h3>
+                <p>お昼休憩や放課後、結局いつもの店に行ってしまう...</p>
+            </div>
+            <div class="problem-card">
+                <h3>新しい店が見つからない</h3>
+                <p>近くに美味しい店があるはずなのに、どこにあるか分からない...</p>
+            </div>
+            <div class="problem-card">
+                <h3>決めるのに時間がかかる</h3>
+                <p>どこに行くか迷って、貴重なお昼休みが減っていく...</p>
+            </div>
+        </div>
+    </section>
 
-<section class="problem">
-  <h2>こんな悩みはありませんか？</h2>
-  <ul>
-    <li>お昼休憩や放課後、どこに食べに行くか毎回迷ってしまう</li>
-    <li>時間や予算の制約で、選択肢が絞れない</li>
-    <li>たまには違うお店に行きたいが、探すのが面倒</li>
-  </ul>
-</section>
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2>「近場のグルメ」でできること</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔖</div>
+                <h3>ブックマーク</h3>
+                <p>気になるお店を保存して、いつでもチェック。お気に入りのリストを作成できます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>月間ランキング</h3>
+                <p>誰が何店舗行ったかが一目で分かる。友達と競い合って新しい店を開拓しよう!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>店舗登録機能</h3>
+                <p>あなたが見つけた隠れた名店を登録して、みんなとシェア。グルメコミュニティに貢献できます。</p>
+            </div>
+        </div>
+    </section>
 
-<section class="solution">
-  <h2>その悩みを解決するのが「近場のグルメ2」</h2>
-  <p>
-    指定したエリアから<strong>10分以内</strong>で行ける飲食店を一覧表示。<br />
-    系統・予算・行きたい条件で、最適なお店をすぐに見つけられます。
-  </p>
-</section>
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <h2>使い方はとってもカンタン</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>ログインする</h3>
+                    <p>無料でアカウントを作成して、すべての機能を使おう</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>近場のお店を探す</h3>
+                    <p>地図からサクッと検索。気になるお店をブックマーク</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>訪問してランクアップ</h3>
+                    <p>お店に行ったら記録して、月間ランキングで上位を目指そう</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>新しいお店を登録</h3>
+                    <p>まだ登録されていない素敵なお店を見つけたら、ぜひシェアを!</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="features">
-  <h2>主な機能</h2>
-  <ul>
-    <li>
-      <strong>近場検索</strong>
-      学校や職場周辺の飲食店をすぐに確認可能
-    </li>
-    <li>
-      <strong>詳細フィルター</strong>
-      ジャンル・予算など細かな条件指定に対応
-    </li>
-    <li>
-      <strong>ブックマーク機能</strong>
-      気になるお店を保存し、後から再確認
-    </li>
-  </ul>
-</section>
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>さあ、新しいグルメ体験を始めよう</h2>
+        <p>毎日のランチタイムと放課後が、もっと楽しくなる</p>
+        <a href="https://2025-product.vercel.app" class="cta-button-secondary">無料で始める →</a>
+    </section>
 
-<section class="demo">
-  <h2>アプリ実演</h2>
-  <p>実際の画面で「近場のグルメ2」を体験できます。</p>
-  <a class="btn" href="https://2025-product.vercel.app/" target="_blank">
-    デモを見る
-  </a>
-</section>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 近場のグルメ. All rights reserved.</p>
+    </footer>
 
-<footer>
-  <p>
-    近場のグルメ2<br />
-    スーパーITエンジニア専攻 2年<br />
-    上出 翔太 / 菊本 凌太郎 / 住田 英駿 / 中村 維吹
-  </p>
-</footer>
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.problem-card, .feature-card, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s, transform 0.6s';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
