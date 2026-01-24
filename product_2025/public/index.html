@@ -31,23 +31,22 @@
 
   <title>近場のグルメ</title>
 
-  <!-- 即時リダイレクト -->
-  <meta http-equiv="refresh" content="0; url=/lp.html" />
-
-  <!-- JavaScript リダイレクト（念のため） -->
   <script>
-    window.location.replace("/lp.html");
+    (function () {
+      const KEY = "lp_redirected";
+
+      // まだリダイレクトしていない場合のみ実行
+      if (!localStorage.getItem(KEY)) {
+        localStorage.setItem(KEY, "true");
+        window.location.replace("/lp.html");
+      }
+    })();
   </script>
 </head>
 
 <body>
-  <noscript>
-    <p>
-      自動で移動しない場合は <a href="/lp.html">こちら</a>
-    </p>
-  </noscript>
-
   <div id="root"></div>
 </body>
 
 </html>
+
