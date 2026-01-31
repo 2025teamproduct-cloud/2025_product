@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,26 +24,29 @@
             background: linear-gradient(135deg, #ffdd7f 0%, #ffc850 100%);
             color: #333;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
         }
+
 
         .hero::before {
             content: '';
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: float 20s linear infinite;
         }
 
         @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
         }
 
         .hero-content {
@@ -64,6 +68,38 @@
             opacity: 0.95;
             animation: fadeInUp 1s ease 0.2s backwards;
         }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
 
         .cta-button {
             display: inline-block;
@@ -90,6 +126,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -121,7 +158,7 @@
             background: white;
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s;
         }
 
@@ -312,15 +349,23 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>お昼も放課後も、<br>もう迷わない。</h1>
-            <p>近場のグルメを発見して、<br>みんなとシェアしよう</p>
-            <a href="https://2025-product.vercel.app" class="cta-button">今すぐ始める →</a>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h1>お昼も放課後も、<br>もう迷わない。</h1>
+                <p>近場のグルメを発見して、<br>みんなとシェアしよう</p>
+                <a href="https://2025-product.vercel.app" class="cta-button">今すぐ始める →</a>
+            </div>
+
+            <div class="hero-image">
+                <img src="FV.png" alt="近場のグルメ ファーストビュー">
+            </div>
         </div>
     </section>
+
 
     <!-- Problem Section -->
     <section class="problem-section">
@@ -434,4 +479,5 @@
         });
     </script>
 </body>
+
 </html>
