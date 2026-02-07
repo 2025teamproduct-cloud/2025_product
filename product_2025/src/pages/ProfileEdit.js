@@ -1,3 +1,4 @@
+// ProfileEdit.js
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { updateProfile, updateEmail } from "firebase/auth";

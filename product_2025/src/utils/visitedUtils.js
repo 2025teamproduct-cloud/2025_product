@@ -1,3 +1,4 @@
+// visitedUtils.js
 import { db } from "../firebase";
 import { doc, getDoc, setDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 

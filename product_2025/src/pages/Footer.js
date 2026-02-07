@@ -1,4 +1,4 @@
-// src/pages/Footer.js
+// Footer.js
 import React from "react";
 import "./Footer.scss"; // デザイン用のCSSを別で作成
 

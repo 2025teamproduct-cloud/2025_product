@@ -1,4 +1,4 @@
-// src/utils/bookmarkUtils.js
+// bookmarkUtils.js
 import { db } from "../firebase";
 import {
   doc,

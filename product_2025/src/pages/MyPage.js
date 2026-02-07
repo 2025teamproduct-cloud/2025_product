@@ -1,3 +1,4 @@
+// MyPage.js
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
